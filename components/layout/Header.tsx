@@ -7,18 +7,28 @@ import { clsx } from 'clsx';
 
 const navLinks = [
   { href: '/first', label: '初めての方へ' },
-  { href: '/therapists', label: 'セラピストを探す' },
-  { href: '/schedule', label: '本日の出勤' },
+  { href: '/therapists', label: 'セラピスト一覧' },
+  { href: '/today', label: '今日会える' },
   { href: '/area', label: 'エリア検索' },
-  { href: '/ranking', label: 'ランキング' },
+  { href: '/diagnosis', label: 'セラピスト診断' },
   { href: '/blog', label: 'コラム' },
   { href: '/safety', label: '安心安全' },
 ];
 
 const mobileNavLinks = [
-  ...navLinks,
+  { href: '/first', label: '初めての方へ' },
+  { href: '/therapists', label: 'セラピストを探す' },
+  { href: '/today', label: '今日会えるセラピスト' },
+  { href: '/area', label: 'エリア検索' },
+  { href: '/diagnosis', label: 'セラピスト診断' },
+  { href: '/ranking', label: 'ランキング' },
+  { href: '/compare', label: 'セラピスト比較' },
+  { href: '/favorites', label: 'お気に入り' },
+  { href: '/history', label: '閲覧履歴' },
+  { href: '/schedule', label: '本日の出勤' },
+  { href: '/blog', label: 'コラム' },
   { href: '/price', label: '料金目安' },
-  { href: '/reviews', label: '口コミ' },
+  { href: '/safety', label: '安心安全' },
   { href: '/faq', label: 'よくある質問' },
   { href: '/contact', label: 'お問い合わせ' },
 ];

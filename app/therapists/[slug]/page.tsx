@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, Clock, Star, Heart, ShieldCheck, MessageCircle, Flag, Instagram } from 'lucide-react';
-import { dummyTherapists } from '@/data/dummy-therapists';
+import { MapPin, Clock, Star, Heart, ShieldCheck, MessageCircle, Flag, Instagram, Check } from 'lucide-react';
+import { dummyTherapists, BADGE_LABELS } from '@/data/dummy-therapists';
 import TherapistCard from '@/components/ui/TherapistCard';
+import FavoriteButton from '@/components/ui/FavoriteButton';
+import CompareButton from '@/components/ui/CompareButton';
+import HistoryTracker from '@/components/ui/HistoryTracker';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -45,6 +48,7 @@ export default async function TherapistDetailPage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <HistoryTracker slug={therapist.slug} name={therapist.name} />
 
       {/* Profile header */}
       <section className="pt-32 pb-12 px-5 bg-surface border-b border-border">
@@ -92,11 +96,23 @@ export default async function TherapistDetailPage({ params }: Props) {
                   <p className="text-gold text-[10px] tracking-[0.3em] mb-2">Therapist Profile</p>
                   <h1 className="font-display text-4xl text-cream tracking-wide">{therapist.name}</h1>
                 </div>
-                <button className="flex flex-col items-center gap-1 text-stone hover:text-wine transition-colors p-2">
-                  <Heart size={20} strokeWidth={1.5} />
-                  <span className="text-[10px]">{therapist.favoriteCount}</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <CompareButton slug={therapist.slug} name={therapist.name} />
+                  <FavoriteButton slug={therapist.slug} name={therapist.name} />
+                </div>
               </div>
+
+              {/* Badges */}
+              {therapist.badges && therapist.badges.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-4">
+                  {therapist.badges.map((badge) => (
+                    <span key={badge} className="flex items-center gap-1 text-[10px] text-gold border border-gold/30 px-2 py-0.5">
+                      <Check size={9} />
+                      {BADGE_LABELS[badge] ?? badge}
+                    </span>
+                  ))}
+                </div>
+              )}
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2 mb-6">
@@ -162,9 +178,9 @@ export default async function TherapistDetailPage({ params }: Props) {
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/contact" className="btn-primary flex items-center gap-2">
+                <Link href={`/therapists/${therapist.slug}/consult`} className="btn-primary flex items-center gap-2">
                   <MessageCircle size={15} />
-                  {therapist.name}に予約相談する
+                  {therapist.name}に相談する
                 </Link>
                 {therapist.instagram && (
                   <a href={therapist.instagram} target="_blank" rel="noopener noreferrer" className="btn-secondary flex items-center gap-2">

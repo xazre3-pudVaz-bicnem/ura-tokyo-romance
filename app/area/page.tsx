@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { MapPin } from 'lucide-react';
+import { MapPin, ArrowRight } from 'lucide-react';
 import { dummyTherapists } from '@/data/dummy-therapists';
+import { areasData } from '@/data/areas';
 
 export const metadata: Metadata = {
   title: 'エリアから女風セラピストを探す｜新宿 渋谷 銀座 六本木 池袋 女風 裏東京ロマンス',
@@ -137,9 +138,54 @@ export default function AreaPage() {
             </p>
           </div>
 
-          <div className="text-center">
-            <Link href="/search" className="btn-primary mr-4">条件で詳しく絞り込む</Link>
-            <Link href="/therapists" className="btn-secondary">全セラピストを見る</Link>
+          {/* Detailed area pages */}
+          <div className="mb-10">
+            <p className="text-gold text-[10px] tracking-widest mb-4">エリア別詳細ガイド</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {areasData.slice(0, 12).map((area) => {
+                const count = dummyTherapists.filter((t) =>
+                  t.areas.some((a) => area.therapistKeywords.some((k) => a.includes(k)))
+                ).length;
+                return (
+                  <Link
+                    key={area.slug}
+                    href={`/area/${area.slug}`}
+                    className="card-luxury p-3 flex items-center justify-between group"
+                  >
+                    <span className="text-stone text-xs group-hover:text-cream transition-colors">{area.name}</span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-gold text-xs">{count}</span>
+                      <ArrowRight size={11} className="text-gold" />
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
+              {areasData.slice(12).map((area) => {
+                const count = dummyTherapists.filter((t) =>
+                  t.areas.some((a) => area.therapistKeywords.some((k) => a.includes(k)))
+                ).length;
+                return (
+                  <Link
+                    key={area.slug}
+                    href={`/area/${area.slug}`}
+                    className="card-luxury p-3 flex items-center justify-between group"
+                  >
+                    <span className="text-stone text-xs group-hover:text-cream transition-colors">{area.name}</span>
+                    <div className="flex items-center gap-1">
+                      <span className="text-gold text-xs">{count}</span>
+                      <ArrowRight size={11} className="text-gold" />
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="text-center flex gap-4 justify-center">
+            <Link href="/therapists" className="btn-primary">全セラピストを見る</Link>
+            <Link href="/today" className="btn-secondary">今日会えるセラピスト</Link>
           </div>
         </div>
       </section>
