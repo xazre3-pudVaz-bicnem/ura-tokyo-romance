@@ -283,3 +283,13 @@ body {
     font-size: clamp(2.5rem, 10vw, 4rem);
   }
 }
+
+/* Hero background image positioning */
+.hero-photo {
+  object-position: 62% center;
+}
+@media (max-width: 640px) {
+  .hero-photo {
+    object-position: 52% center;
+  }
+}
