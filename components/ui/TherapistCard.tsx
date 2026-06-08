@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { clsx } from 'clsx';
 import { Star, Heart, ShieldCheck } from 'lucide-react';
 import type { Therapist } from '@/data/dummy-therapists';
+import { AUTH_LEVEL_LABELS, AUTH_LEVEL_COLORS } from '@/data/dummy-therapists';
 import FavoriteButton from './FavoriteButton';
 import CompareButton from './CompareButton';
 
@@ -108,6 +108,15 @@ export default function TherapistCard({
                 <span key={tag} className="tag-pill">{tag}</span>
               ))}
             </div>
+
+            {/* Auth level */}
+            {therapist.authLevel >= 1 && (
+              <div className="mb-2">
+                <span className={`text-[9px] tracking-widest ${AUTH_LEVEL_COLORS[therapist.authLevel]}`}>
+                  ✓ {AUTH_LEVEL_LABELS[therapist.authLevel]}
+                </span>
+              </div>
+            )}
 
             {/* Stats */}
             <div className="flex items-center gap-3 mb-3">

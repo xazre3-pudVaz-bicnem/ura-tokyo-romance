@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, Clock, Star, Heart, ShieldCheck, MessageCircle, Flag, Instagram, Check } from 'lucide-react';
-import { dummyTherapists, BADGE_LABELS } from '@/data/dummy-therapists';
+import { MapPin, Clock, Star, Heart, ShieldCheck, MessageCircle, Flag, Instagram, Check, Eye } from 'lucide-react';
+import { dummyTherapists, BADGE_LABELS, AUTH_LEVEL_LABELS, AUTH_LEVEL_COLORS } from '@/data/dummy-therapists';
 import TherapistCard from '@/components/ui/TherapistCard';
 import FavoriteButton from '@/components/ui/FavoriteButton';
 import CompareButton from '@/components/ui/CompareButton';
@@ -121,8 +121,23 @@ export default async function TherapistDetailPage({ params }: Props) {
                 ))}
               </div>
 
+              {/* Auth level */}
+              {therapist.authLevel >= 1 && (
+                <div className="flex items-center gap-2 mb-4">
+                  {[1, 2, 3, 4, 5].map((level) => (
+                    <div
+                      key={level}
+                      className={`h-1 flex-1 transition-colors ${level <= therapist.authLevel ? 'bg-gold' : 'bg-border'}`}
+                    />
+                  ))}
+                  <span className={`text-[10px] tracking-wider whitespace-nowrap ${AUTH_LEVEL_COLORS[therapist.authLevel]}`}>
+                    {AUTH_LEVEL_LABELS[therapist.authLevel]}
+                  </span>
+                </div>
+              )}
+
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-3 mb-6">
+              <div className="grid grid-cols-3 gap-3 mb-4">
                 <div className="text-center p-3 bg-elevated border border-border">
                   <p className="text-stone text-[10px] tracking-wider mb-1">年齢</p>
                   <p className="text-cream text-xl font-display">{therapist.age}<span className="text-stone text-xs">歳</span></p>
@@ -137,6 +152,24 @@ export default async function TherapistDetailPage({ params }: Props) {
                     <Star size={13} className="text-gold fill-gold" />
                     <span className="text-base">{therapist.reviewCount}</span>
                   </p>
+                </div>
+              </div>
+
+              {/* View counts */}
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                <div className="p-3 bg-elevated border border-border flex items-center gap-3">
+                  <Eye size={14} className="text-stone" strokeWidth={1.5} />
+                  <div>
+                    <p className="text-stone text-[10px]">今週の閲覧数</p>
+                    <p className="text-cream text-base font-display">{therapist.weeklyViewCount.toLocaleString()}<span className="text-stone text-[10px] ml-1">回</span></p>
+                  </div>
+                </div>
+                <div className="p-3 bg-elevated border border-border flex items-center gap-3">
+                  <Eye size={14} className="text-stone" strokeWidth={1.5} />
+                  <div>
+                    <p className="text-stone text-[10px]">今月の閲覧数</p>
+                    <p className="text-cream text-base font-display">{therapist.monthlyViewCount.toLocaleString()}<span className="text-stone text-[10px] ml-1">回</span></p>
+                  </div>
                 </div>
               </div>
 

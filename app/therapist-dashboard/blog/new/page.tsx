@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Save, Send, Image, HelpCircle, ChevronDown } from 'lucide-react';
+import { ArrowLeft, Save, Send, Image, HelpCircle, ChevronDown, Sparkles, Loader2 } from 'lucide-react';
 import { BLOG_CATEGORIES, BLOG_TAGS } from '@/data/staff-blog';
 
 const AREAS = ['渋谷', '新宿', '池袋', '銀座', '六本木', '上野', '品川', '恵比寿', '中目黒', '吉祥寺', '立川', '吉祥寺'];
@@ -82,6 +82,11 @@ export default function BlogNewPage() {
   const [keywords, setKeywords] = useState<string[]>([]);
   const [showSeoSection, setShowSeoSection] = useState(false);
   const [saved, setSaved] = useState<'draft' | 'submitted' | null>(null);
+  const [aiTheme, setAiTheme] = useState('');
+  const [aiArea, setAiArea] = useState('');
+  const [aiAudience, setAiAudience] = useState('');
+  const [aiGenerating, setAiGenerating] = useState(false);
+  const [aiResult, setAiResult] = useState<{ title: string; headings: string[]; draft: string } | null>(null);
 
   const toggleTag = (tag: string) =>
     setSelectedTags((prev) => prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]);
@@ -94,6 +99,34 @@ export default function BlogNewPage() {
       setKeywords((prev) => [...prev, kw]);
       setKeywordInput('');
     }
+  };
+
+  const generateAiBlog = () => {
+    if (!aiTheme) return;
+    setAiGenerating(true);
+    setAiResult(null);
+    setTimeout(() => {
+      setAiGenerating(false);
+      const area = aiArea || '渋谷';
+      const theme = aiTheme;
+      setAiResult({
+        title: `${area}で感じる${theme}｜セラピストのリアルな日常`,
+        headings: [
+          `${area}で${theme}を体験して思ったこと`,
+          '癒しの時間とは何か、私なりの考え',
+          `${aiAudience || '初めての方'}へ伝えたいこと`,
+          'お会いできることを楽しみにしています',
+        ],
+        draft: `最近、${area}で${theme}を体験する機会がありました。\n\n日常の忙しさから少し離れて、ゆっくりとした時間を過ごすことで、気持ちがふっと軽くなるような感覚がありました。\n\n${aiAudience || '初めての方'}も、緊張せずにお声がけください。お話することが好きなので、最初は雑談からでも大丈夫です。\n\n${area}エリアでお会いできることを楽しみにしております。`,
+      });
+    }, 1800);
+  };
+
+  const applyAiDraft = () => {
+    if (!aiResult) return;
+    setTitle(aiResult.title);
+    setContent(aiResult.draft);
+    setAiResult(null);
   };
 
   const handleSave = (mode: 'draft' | 'submitted') => {
@@ -343,6 +376,78 @@ export default function BlogNewPage() {
             keywords={keywords}
             content={content}
           />
+
+          {/* AI blog assist */}
+          <div className="card-luxury border border-gold/20">
+            <div className="flex items-center gap-2 px-5 py-4 border-b border-border/50">
+              <Sparkles size={14} className="text-gold" strokeWidth={1.5} />
+              <p className="text-gold text-[10px] tracking-widest">AIブログ補助</p>
+            </div>
+            <div className="p-5 space-y-3">
+              <p className="text-mist text-[10px]">テーマ・エリア・読み手を入力すると、タイトル案・見出し・下書きを生成します</p>
+              <div>
+                <label className="block text-mist text-[10px] mb-1.5">テーマ<span className="text-wine ml-1">*</span></label>
+                <input
+                  value={aiTheme}
+                  onChange={(e) => setAiTheme(e.target.value)}
+                  placeholder="例：癒し、出勤情報、日常"
+                  className="w-full bg-elevated border border-border text-cream text-xs px-3 py-2 outline-none focus:border-gold/50"
+                />
+              </div>
+              <div>
+                <label className="block text-mist text-[10px] mb-1.5">エリア</label>
+                <input
+                  value={aiArea}
+                  onChange={(e) => setAiArea(e.target.value)}
+                  placeholder="例：渋谷、新宿"
+                  className="w-full bg-elevated border border-border text-cream text-xs px-3 py-2 outline-none focus:border-gold/50"
+                />
+              </div>
+              <div>
+                <label className="block text-mist text-[10px] mb-1.5">読んでほしい方</label>
+                <input
+                  value={aiAudience}
+                  onChange={(e) => setAiAudience(e.target.value)}
+                  placeholder="例：初めての方、リピーターの方"
+                  className="w-full bg-elevated border border-border text-cream text-xs px-3 py-2 outline-none focus:border-gold/50"
+                />
+              </div>
+              <button
+                onClick={generateAiBlog}
+                disabled={!aiTheme || aiGenerating}
+                className="w-full flex items-center justify-center gap-2 border border-gold/30 text-gold text-xs py-2.5 hover:bg-gold/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {aiGenerating ? <Loader2 size={13} className="animate-spin" /> : <Sparkles size={13} />}
+                {aiGenerating ? '生成中...' : '下書きを生成する'}
+              </button>
+
+              {aiResult && (
+                <div className="space-y-3 border-t border-border pt-3 mt-3">
+                  <div>
+                    <p className="text-mist text-[10px] mb-1">タイトル案</p>
+                    <p className="text-cream text-xs bg-elevated px-3 py-2">{aiResult.title}</p>
+                  </div>
+                  <div>
+                    <p className="text-mist text-[10px] mb-1">見出し案</p>
+                    <ul className="space-y-1">
+                      {aiResult.headings.map((h, i) => (
+                        <li key={i} className="text-stone text-[10px] flex items-start gap-1.5">
+                          <span className="text-gold">H{i + 2}.</span>{h}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <button
+                    onClick={applyAiDraft}
+                    className="w-full text-emerald-400 border border-emerald-400/30 text-xs py-2 hover:bg-emerald-400/10 transition-colors"
+                  >
+                    この下書きを使う
+                  </button>
+                  <p className="text-mist text-[9px]">適用後、自由に編集できます</p>
+                </div>
+              )}
+            </div>
+          </div>
 
           <div className="card-luxury p-5">
             <p className="text-gold text-[10px] tracking-widest mb-3">投稿のヒント</p>

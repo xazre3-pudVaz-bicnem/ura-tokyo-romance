@@ -1,4 +1,5 @@
-import { Eye, Heart, Star, MessageSquare, TrendingUp, Calendar } from 'lucide-react';
+import Link from 'next/link';
+import { Eye, Heart, Star, MessageSquare, TrendingUp, Calendar, Bell } from 'lucide-react';
 
 const stats = [
   { label: 'プロフィール閲覧数', value: '—', icon: Eye, note: 'グランドオープン後' },
@@ -11,6 +12,20 @@ export default function DashboardPage() {
   return (
     <div>
       <h2 className="font-display text-2xl text-cream mb-6">ダッシュボード</h2>
+
+      {/* Favorite notification banner */}
+      <div className="bg-wine/10 border border-wine/30 p-4 mb-5 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Heart size={16} className="text-wine flex-shrink-0" strokeWidth={1.5} />
+          <div>
+            <p className="text-cream text-sm">新たに3人がお気に入り登録しました</p>
+            <p className="text-mist text-[10px] mt-0.5">今週合計12人・今月合計38人がお気に入りに追加しています</p>
+          </div>
+        </div>
+        <Link href="/therapist-dashboard/notifications" className="text-gold text-[10px] hover:underline whitespace-nowrap">
+          通知を見る →
+        </Link>
+      </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">

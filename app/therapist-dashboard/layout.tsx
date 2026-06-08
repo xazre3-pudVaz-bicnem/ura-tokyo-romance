@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, User, Image, Calendar, BookOpen,
-  Star, MessageSquare, BarChart2, Settings, LogOut,
+  Star, MessageSquare, BarChart2, Settings, LogOut, Bell,
 } from 'lucide-react';
 
 const navItems = [
@@ -14,9 +14,10 @@ const navItems = [
   { href: '/therapist-dashboard/schedule', label: '出勤管理', icon: Calendar },
   { href: '/therapist-dashboard/blog', label: 'ブログ', icon: BookOpen },
   null,
-  { href: '/therapist-dashboard/inquiries', label: '受信相談', icon: MessageSquare },
+  { href: '/therapist-dashboard/inquiries', label: '受信相談', icon: MessageSquare, badge: 1 },
   { href: '/therapist-dashboard/reviews', label: '口コミ', icon: Star },
   { href: '/therapist-dashboard/analytics', label: 'アクセス分析', icon: BarChart2 },
+  { href: '/therapist-dashboard/notifications', label: '通知', icon: Bell, badge: 3 },
   null,
   { href: '/therapist-dashboard/settings', label: '設定', icon: Settings },
 ];
@@ -76,7 +77,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     }`}
                   >
                     <Icon size={14} strokeWidth={1.5} />
-                    {item.label}
+                    <span className="flex-1">{item.label}</span>
+                    {'badge' in item && item.badge ? (
+                      <span className="w-4 h-4 bg-wine text-cream text-[9px] flex items-center justify-center rounded-full flex-shrink-0">
+                        {item.badge}
+                      </span>
+                    ) : null}
                   </Link>
                 );
               })}

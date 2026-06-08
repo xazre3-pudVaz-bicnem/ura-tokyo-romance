@@ -4,19 +4,21 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, ClipboardList, Users, FileCheck,
-  Star, MessageSquare, AlertTriangle, Settings, LogOut, ChevronRight,
+  Star, MessageSquare, AlertTriangle, Settings, LogOut, Bell, CreditCard,
 } from 'lucide-react';
 
 const NAV = [
   { href: '/admin-dashboard', label: 'ダッシュボード', icon: LayoutDashboard, exact: true },
   { href: '/admin-dashboard/applications', label: '申請管理', icon: ClipboardList, badge: 3 },
   { href: '/admin-dashboard/therapists', label: 'セラピスト管理', icon: Users },
+  { href: '/admin-dashboard/plans', label: 'プラン管理', icon: CreditCard },
   null,
   { href: '/admin-dashboard/blog-approvals', label: 'ブログ承認', icon: FileCheck, badge: 2 },
   { href: '/admin-dashboard/reviews', label: '口コミ管理', icon: Star },
   { href: '/admin-dashboard/inquiries', label: '相談管理', icon: MessageSquare },
   { href: '/admin-dashboard/reports', label: '通報管理', icon: AlertTriangle },
   null,
+  { href: '/admin-dashboard/notifications', label: '通知センター', icon: Bell },
   { href: '/admin-dashboard/settings', label: '設定', icon: Settings },
 ];
 

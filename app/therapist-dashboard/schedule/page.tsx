@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Calendar, Clock, Save, Check } from 'lucide-react';
+import { Calendar, Clock, Save, Check, FileText, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 const days = ['月', '火', '水', '木', '金', '土', '日'];
 const timeSlots = ['10:00〜', '12:00〜', '14:00〜', '16:00〜', '18:00〜', '20:00〜', '22:00〜'];
@@ -96,6 +97,42 @@ export default function SchedulePage() {
           {saved ? <Check size={15} /> : <Save size={15} />}
           {saved ? '保存しました' : '保存する'}
         </button>
+
+        {/* Auto blog from schedule */}
+        <div className="card-luxury border border-gold/20">
+          <div className="px-6 py-4 border-b border-border/50 flex items-center gap-3">
+            <Sparkles size={16} className="text-gold" strokeWidth={1.5} />
+            <div>
+              <p className="text-cream text-sm">この出勤情報からブログ下書きを作成</p>
+              <p className="text-mist text-[10px] mt-0.5">設定したエリア・日程をもとに記事の下書きを自動生成します</p>
+            </div>
+          </div>
+          <div className="p-6">
+            <div className="space-y-3 mb-4">
+              <div>
+                <label className="block text-mist text-[10px] tracking-widest mb-2">一言コメント（任意）</label>
+                <input
+                  type="text"
+                  placeholder="例：渋谷で久しぶりの出勤です。癒しのひと時をお届けします"
+                  className="w-full bg-elevated border border-border text-cream text-sm px-4 py-2.5 outline-none focus:border-gold/50"
+                />
+              </div>
+            </div>
+            <div className="bg-elevated border border-border p-4 mb-4">
+              <p className="text-mist text-[10px] mb-2">生成されるブログ下書きのイメージ</p>
+              <p className="text-stone text-xs leading-relaxed">
+                「{selectedDays.join('・')}の出勤情報」をもとに、エリア・雰囲気・セラピストらしさを盛り込んだ記事が自動生成されます。生成後に自由に編集できます。
+              </p>
+            </div>
+            <Link
+              href="/therapist-dashboard/blog/new?from=schedule"
+              className="flex items-center gap-2 btn-secondary text-sm py-2.5 px-5 w-fit"
+            >
+              <FileText size={14} />
+              ブログ下書きを作成する
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
