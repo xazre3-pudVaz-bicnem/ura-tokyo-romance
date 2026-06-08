@@ -24,6 +24,11 @@ export const AUTH_LEVEL_COLORS: Record<number, string> = {
   5: 'text-gold',
 };
 
+export interface SocialLinks {
+  x?: string;
+  instagram?: string;
+}
+
 export interface Therapist {
   id: number;
   slug: string;
@@ -49,7 +54,7 @@ export interface Therapist {
   weeklyViewCount: number;
   monthlyViewCount: number;
   plans: TherapistPlan[];
-  instagram?: string;
+  socialLinks?: SocialLinks;
   blogPosts?: { title: string; slug: string }[];
   availableToday: boolean;
   availableDays: string[];
@@ -102,6 +107,10 @@ export const dummyTherapists: Therapist[] = [
       { name: '120分', duration: 120, price: 33000 },
       { name: '180分', duration: 180, price: 48000 },
     ],
+    socialLinks: {
+      x: 'https://x.com/ren_sample',
+      instagram: 'https://www.instagram.com/ren_sample/',
+    },
     blogPosts: [
       { title: '女風を初めて利用した女性からよく聞かれること', slug: 'ren-blog-1' },
     ],
@@ -146,6 +155,9 @@ export const dummyTherapists: Therapist[] = [
       { name: '120分', duration: 120, price: 32000 },
       { name: '180分', duration: 180, price: 46000 },
     ],
+    socialLinks: {
+      instagram: 'https://www.instagram.com/yuma_sample/',
+    },
   },
   {
     id: 3,
@@ -186,6 +198,10 @@ export const dummyTherapists: Therapist[] = [
       { name: '90分', duration: 90, price: 22000 },
       { name: '120分', duration: 120, price: 29000 },
     ],
+    socialLinks: {
+      x: 'https://x.com/ritsu_sample',
+      instagram: 'https://www.instagram.com/ritsu_sample/',
+    },
   },
   {
     id: 4,

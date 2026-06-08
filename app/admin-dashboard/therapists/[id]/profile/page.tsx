@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
-import { Save, ExternalLink } from 'lucide-react';
+import { Save, ExternalLink, Twitter, Instagram } from 'lucide-react';
 import Link from 'next/link';
 import { dummyTherapists } from '@/data/dummy-therapists';
 
@@ -66,6 +66,54 @@ export default function TherapistAdminProfilePage() {
           <div className="md:col-span-2">
             <p className="text-mist text-[10px] mb-1">自己紹介文</p>
             <p className="text-stone text-sm leading-relaxed">{therapist.recommended}</p>
+          </div>
+          {(therapist.socialLinks?.x || therapist.socialLinks?.instagram) && (
+            <div className="md:col-span-2">
+              <p className="text-mist text-[10px] mb-2">SNSリンク</p>
+              <div className="flex flex-wrap gap-2">
+                {therapist.socialLinks?.x && (
+                  <a href={therapist.socialLinks.x} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-[10px] text-stone border border-border px-3 py-1.5 hover:border-gold/40 hover:text-cream transition-colors">
+                    <Twitter size={10} /> X
+                  </a>
+                )}
+                {therapist.socialLinks?.instagram && (
+                  <a href={therapist.socialLinks.instagram} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-[10px] text-stone border border-border px-3 py-1.5 hover:border-gold/40 hover:text-cream transition-colors">
+                    <Instagram size={10} /> Instagram
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Admin overrides — SNS edit */}
+      <div className="bg-surface border border-border p-6">
+        <p className="text-gold text-[10px] tracking-widest mb-4">SNS設定（管理者編集）</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="flex items-center gap-2 text-mist text-[10px] tracking-widest mb-2">
+              <Twitter size={10} /> X（旧Twitter）URL
+            </label>
+            <input
+              type="url"
+              defaultValue={therapist.socialLinks?.x ?? ''}
+              placeholder="https://x.com/handle"
+              className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm placeholder:text-mist outline-none focus:border-gold/50"
+            />
+          </div>
+          <div>
+            <label className="flex items-center gap-2 text-mist text-[10px] tracking-widest mb-2">
+              <Instagram size={10} /> Instagram URL
+            </label>
+            <input
+              type="url"
+              defaultValue={therapist.socialLinks?.instagram ?? ''}
+              placeholder="https://www.instagram.com/handle/"
+              className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm placeholder:text-mist outline-none focus:border-gold/50"
+            />
           </div>
         </div>
       </div>

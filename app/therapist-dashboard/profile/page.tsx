@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Save, Plus, X } from 'lucide-react';
+import { Save, Plus, X, Twitter, Instagram } from 'lucide-react';
 
 const availableTags = [
   '癒し系', '聞き上手', '会話重視', '落ち着いた雰囲気', '明るい雰囲気',
@@ -16,6 +16,8 @@ export default function ProfileEditPage() {
   const [intro, setIntro] = useState('日常から離れた特別な時間を一緒に過ごしませんか。');
   const [selectedTags, setSelectedTags] = useState(['癒し系', '聞き上手', '初めての方におすすめ']);
   const [areas, setAreas] = useState('渋谷、新宿、恵比寿、目黒');
+  const [xUrl, setXUrl] = useState('');
+  const [instagramUrl, setInstagramUrl] = useState('');
   const [saved, setSaved] = useState(false);
 
   const toggleTag = (tag: string) => {
@@ -115,6 +117,45 @@ export default function ProfileEditPage() {
             placeholder="例：渋谷、新宿、恵比寿"
             className="w-full bg-elevated border border-border text-cream px-4 py-3 text-sm placeholder:text-mist outline-none focus:border-gold/50" />
           <p className="text-mist text-[10px] mt-1">カンマ区切りで複数エリアを入力</p>
+        </div>
+
+        {/* SNS links */}
+        <div className="card-luxury p-6">
+          <p className="text-gold text-[10px] tracking-widest mb-4">SNSリンク（任意）</p>
+          <p className="text-stone text-xs mb-4 leading-relaxed">
+            登録したSNSはプロフィールページに表示されます。集客・告知にご活用ください。
+          </p>
+          <div className="space-y-4">
+            <div>
+              <label className="flex items-center gap-2 text-mist text-[10px] tracking-widest mb-2">
+                <Twitter size={11} />
+                X（旧Twitter）URL
+              </label>
+              <input
+                value={xUrl}
+                onChange={(e) => setXUrl(e.target.value)}
+                placeholder="https://x.com/your_handle"
+                type="url"
+                className="w-full bg-elevated border border-border text-cream px-4 py-3 text-sm placeholder:text-mist outline-none focus:border-gold/50"
+              />
+            </div>
+            <div>
+              <label className="flex items-center gap-2 text-mist text-[10px] tracking-widest mb-2">
+                <Instagram size={11} />
+                Instagram URL
+              </label>
+              <input
+                value={instagramUrl}
+                onChange={(e) => setInstagramUrl(e.target.value)}
+                placeholder="https://www.instagram.com/your_handle/"
+                type="url"
+                className="w-full bg-elevated border border-border text-cream px-4 py-3 text-sm placeholder:text-mist outline-none focus:border-gold/50"
+              />
+            </div>
+          </div>
+          <p className="text-mist text-[10px] mt-3">
+            ※ 未入力の場合はプロフィールページに表示されません
+          </p>
         </div>
 
         {/* Save */}

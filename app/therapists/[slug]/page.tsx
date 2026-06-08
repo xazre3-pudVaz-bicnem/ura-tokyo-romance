@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, Clock, Star, ShieldCheck, MessageCircle, Calendar, Flag, Instagram, Check, Eye } from 'lucide-react';
+import { MapPin, Clock, Star, ShieldCheck, MessageCircle, Calendar, Flag, Instagram, Check, Eye, Twitter } from 'lucide-react';
 import { dummyTherapists, BADGE_LABELS, AUTH_LEVEL_LABELS, AUTH_LEVEL_COLORS } from '@/data/dummy-therapists';
 import TherapistCard from '@/components/ui/TherapistCard';
 import FavoriteButton from '@/components/ui/FavoriteButton';
@@ -116,11 +116,39 @@ export default async function TherapistDetailPage({ params }: Props) {
               )}
 
               {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {therapist.tags.map((tag) => (
                   <span key={tag} className="tag-pill">{tag}</span>
                 ))}
               </div>
+
+              {/* SNS links */}
+              {(therapist.socialLinks?.x || therapist.socialLinks?.instagram) && (
+                <div className="flex items-center gap-2 mb-5">
+                  {therapist.socialLinks?.x && (
+                    <a
+                      href={therapist.socialLinks.x}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-[11px] text-stone/70 border border-border/60 px-3 py-1.5 hover:border-gold/40 hover:text-cream transition-all duration-200"
+                    >
+                      <Twitter size={12} strokeWidth={1.8} />
+                      X
+                    </a>
+                  )}
+                  {therapist.socialLinks?.instagram && (
+                    <a
+                      href={therapist.socialLinks.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-[11px] text-stone/70 border border-border/60 px-3 py-1.5 hover:border-gold/40 hover:text-cream transition-all duration-200"
+                    >
+                      <Instagram size={12} strokeWidth={1.8} />
+                      Instagram
+                    </a>
+                  )}
+                </div>
+              )}
 
               {/* Auth level */}
               {therapist.authLevel >= 1 && (
@@ -219,12 +247,6 @@ export default async function TherapistDetailPage({ params }: Props) {
                   <Calendar size={15} />
                   空き状況を確認する
                 </a>
-                {therapist.instagram && (
-                  <a href={therapist.instagram} target="_blank" rel="noopener noreferrer" className="btn-secondary flex items-center gap-2">
-                    <Instagram size={15} />
-                    Instagram
-                  </a>
-                )}
               </div>
             </div>
           </div>
