@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Clock, ShieldCheck, Star, ArrowRight } from 'lucide-react';
 import SectionTitle from '@/components/ui/SectionTitle';
@@ -153,12 +152,11 @@ export default async function AreaSlugPage({ params }: PageProps) {
             <div className="flex flex-col md:flex-row">
               <div className="relative w-full md:w-52 aspect-[4/3] md:aspect-auto flex-shrink-0 overflow-hidden">
                 {spotlightTherapist.image ? (
-                  <Image
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
                     src={spotlightTherapist.image}
                     alt={spotlightTherapist.name}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 768px) 100vw, 208px"
+                    className="absolute inset-0 w-full h-full object-cover object-top"
                   />
                 ) : (
                   <div className="img-placeholder w-full h-full" />

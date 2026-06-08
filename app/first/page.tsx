@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import SectionTitle from '@/components/ui/SectionTitle';
 import { Shield, Search, Eye, Heart, Check, MessageCircle, ShieldCheck, ArrowRight } from 'lucide-react';
@@ -171,12 +170,11 @@ export default function FirstPage() {
             {/* Photo side */}
             <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[480px] overflow-hidden">
               {firstTimerTherapist.image ? (
-                <Image
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
                   src={firstTimerTherapist.image}
                   alt={firstTimerTherapist.name}
-                  fill
-                  className="object-cover object-center"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="absolute inset-0 w-full h-full object-cover object-center"
                 />
               ) : (
                 <div className="img-placeholder w-full h-full" />

@@ -30,12 +30,11 @@ export default function TherapistCard({
           {/* Image area */}
           <div className="relative aspect-[3/4] overflow-hidden">
             {therapist.image ? (
-              <Image
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
                 src={therapist.image}
                 alt={therapist.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             ) : (
               <div className="img-placeholder w-full h-full flex-col gap-2">
