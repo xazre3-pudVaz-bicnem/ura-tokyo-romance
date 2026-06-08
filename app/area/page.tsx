@@ -4,9 +4,13 @@ import { MapPin } from 'lucide-react';
 import { dummyTherapists } from '@/data/dummy-therapists';
 
 export const metadata: Metadata = {
-  title: 'エリアから探す｜東京 女風マッチング 裏東京ロマンス',
+  title: 'エリアから女風セラピストを探す｜新宿 渋谷 銀座 六本木 池袋 女風 裏東京ロマンス',
+  keywords: [
+    '新宿 女風', '渋谷 女風', '銀座 女風', '六本木 女風', '池袋 女風',
+    '恵比寿 女風', '表参道 女風', '東京 女風 エリア', '女性用風俗 東京 エリア',
+  ],
   description:
-    '東京の女風セラピストをエリアから探す。渋谷・新宿・銀座・六本木・池袋・表参道など東京各エリアで活動するセラピストを一覧で確認できます。',
+    '東京の女風セラピストをエリアから検索。新宿・渋谷・銀座・六本木・池袋・恵比寿・表参道など東京各エリアで活動するセラピストを一覧で確認できます。',
   alternates: { canonical: 'https://ura-tokyo-romance.com/area' },
 };
 

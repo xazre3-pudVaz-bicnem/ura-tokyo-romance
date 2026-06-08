@@ -4,9 +4,10 @@ import SectionTitle from '@/components/ui/SectionTitle';
 import { Check, UserPlus, ShieldCheck, Star, TrendingUp, Calendar, Instagram, FileText } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: '女風セラピスト登録｜東京 女風マッチング 裏東京ロマンス',
+  title: '女風セラピスト登録｜東京 女風 セラピスト募集 裏東京ロマンス',
+  keywords: ['女風 セラピスト 登録', '東京 女風 セラピスト 募集', '女風 セラピスト 個人', '女性用風俗 男性 登録', '東京 女風 セラピスト なるには'],
   description:
-    '東京で女風セラピストとして活動したい方へ。裏東京ロマンスはSEOに強いプロフィールページ掲載・本人確認済みバッジ・ランキング露出など、個人セラピストの集客を支援するマッチングプラットフォームです。女風セラピスト登録はこちら。',
+    '東京で女風セラピストとして個人活動したい方へ。SNSに頼らない集客・SEOに強いプロフィールページ・本人確認済みバッジ・ランキング露出で、東京の女性に見つけてもらえる環境を提供します。女風セラピスト登録受付中。',
   alternates: { canonical: 'https://ura-tokyo-romance.com/register' },
 };
 

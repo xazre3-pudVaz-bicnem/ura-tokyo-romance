@@ -23,7 +23,7 @@ export default function NewFacePage() {
           <span className="block w-16 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6" />
           <p className="text-stone leading-relaxed">
             裏東京ロマンスに新しく加わったセラピストをご紹介します。
-            フレッシュな出会いをお楽しみください。
+            新しいセラピストとの出会いを大切に。
           </p>
         </div>
       </section>

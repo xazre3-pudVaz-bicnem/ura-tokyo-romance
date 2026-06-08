@@ -15,9 +15,19 @@ import RecruitCTA from '@/components/sections/RecruitCTA';
 import FaqSection from '@/components/sections/FaqSection';
 
 export const metadata: Metadata = {
-  title: '東京 女風マッチング｜裏東京ロマンス｜2026年8月1日グランドオープン',
+  title: '東京 女風マッチング｜女性用風俗 セラピスト検索・比較・相談 裏東京ロマンス',
+  keywords: [
+    '東京 女風 マッチング', '東京 女性用風俗 マッチング', '女風 セラピスト 検索',
+    '東京 女風', '女性用風俗 東京', '女風 比較', '女風 相談',
+  ],
   description:
-    '裏東京ロマンスは、東京で女性用風俗・女風を利用したい女性と、個人で活動したいセラピストをつなぐマッチングプラットフォームです。本人確認済みセラピスト掲載。安全・安心な女風探しを。',
+    '裏東京ロマンスは、東京で女性用風俗・女風を利用したい女性と、個人で活動したいセラピストをつなぐマッチングプラットフォームです。本人確認済みセラピストのみ掲載。2026年8月1日グランドオープン。',
+  openGraph: {
+    title: '東京 女風マッチング｜裏東京ロマンス',
+    description: '本人確認済みの東京女風セラピストを検索・比較・相談できるマッチングプラットフォーム。2026年8月1日グランドオープン。',
+    locale: 'ja_JP',
+    type: 'website',
+  },
   alternates: {
     canonical: 'https://ura-tokyo-romance.com',
   },

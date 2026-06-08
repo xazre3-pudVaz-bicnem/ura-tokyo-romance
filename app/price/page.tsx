@@ -5,9 +5,10 @@ import { dummyTherapists } from '@/data/dummy-therapists';
 import TherapistCard from '@/components/ui/TherapistCard';
 
 export const metadata: Metadata = {
-  title: '料金目安｜東京 女風マッチング 裏東京ロマンス',
+  title: '東京 女風 料金相場｜女性用風俗 料金 目安 裏東京ロマンス',
+  keywords: ['東京 女風 料金', '女性用風俗 料金 相場', '女風 料金 60分', '東京 女風 いくら', '女性用風俗 東京 料金'],
   description:
-    '裏東京ロマンス掲載セラピストの料金目安。東京の女風・女性用風俗の料金は60分¥14,000〜。各セラピストによって異なります。セラピストごとのプロフィールで詳細をご確認ください。',
+    '東京の女風・女性用風俗の料金相場。60分¥12,000〜¥22,000、90分¥18,000〜¥32,000が目安です。料金はセラピストごとに異なります。詳細はセラピストのプロフィールをご確認ください。',
   alternates: { canonical: 'https://ura-tokyo-romance.com/price' },
 };
 

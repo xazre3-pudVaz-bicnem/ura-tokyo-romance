@@ -3,7 +3,6 @@ import Link from 'next/link';
 import SectionTitle from '@/components/ui/SectionTitle';
 import ReviewCard from '@/components/ui/ReviewCard';
 import { dummyReviews } from '@/data/dummy-reviews';
-import { Star } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: '口コミ・お客様の声｜東京 女性用風俗・女風の裏東京ロマンス',
@@ -43,29 +42,22 @@ export default function ReviewsPage() {
 
       <section className="section-py px-5">
         <div className="max-w-5xl mx-auto">
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-4 mb-16">
-            {[
-              { label: '総合評価', value: '5.0', sub: '/ 5.0' },
-              { label: '満足度', value: '98%', sub: 'ご満足いただきました' },
-              { label: 'リピート率', value: '85%', sub: 'の方がリピートご利用' },
-            ].map((s) => (
-              <div key={s.label} className="text-center p-6 md:p-10 bg-surface border border-border">
-                <p className="font-display text-4xl text-cream mb-1">{s.value}</p>
-                <div className="flex justify-center mb-1">
-                  {s.label === '総合評価' && [1,2,3,4,5].map((i) => (
-                    <Star key={i} size={12} className="text-gold fill-gold" />
-                  ))}
-                </div>
-                <p className="text-stone text-[10px]">{s.sub}</p>
-                <p className="text-mist text-[10px] mt-1">{s.label}</p>
-              </div>
-            ))}
+          {/* Pre-launch notice */}
+          <div className="bg-elevated border border-gold/20 p-8 mb-16 text-center">
+            <p className="text-gold text-[10px] tracking-[0.3em] mb-3">口コミ機能 準備中</p>
+            <p className="text-cream text-lg font-display mb-3">2026年8月1日グランドオープン後に公開予定</p>
+            <p className="text-stone text-sm leading-relaxed">
+              実際に裏東京ロマンスを利用した方の口コミを掲載します。<br />
+              セラピストのプロフィールページから利用後に投稿いただけます。
+            </p>
           </div>
 
-          <SectionTitle en="Customer Reviews" ja="お客様の声" />
+          <SectionTitle en="Sample Reviews" ja="サンプル口コミ" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="mb-6 p-4 bg-elevated border border-border">
+            <p className="text-mist text-xs text-center">以下はサンプル口コミです。グランドオープン（2026年8月1日）後に実際の利用者の声が蓄積されます。</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 opacity-60">
             {dummyReviews.map((review) => (
               <ReviewCard key={review.id} review={review} />
             ))}

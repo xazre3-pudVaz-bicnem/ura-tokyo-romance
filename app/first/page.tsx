@@ -4,9 +4,10 @@ import SectionTitle from '@/components/ui/SectionTitle';
 import { Shield, Search, Eye, Heart, Check, MessageCircle, Star } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: '初めての方へ｜東京 女風マッチング 裏東京ロマンス',
+  title: '女風 初めての方へ｜女性用風俗 初めて 東京 裏東京ロマンス',
+  keywords: ['女風 初めて', '女性用風俗 初めて 東京', '女風 使い方', '東京 女風 流れ', '女風 料金 初めて'],
   description:
-    '初めて女性用風俗・女風をご利用の方へ。裏東京ロマンスでのセラピストの探し方・予約の流れ・料金・安全性を詳しくご説明します。女風マッチングの使い方ガイド。',
+    '初めて女性用風俗・女風をご利用の方へ。裏東京ロマンスでのセラピストの探し方・予約相談の流れ・料金目安・安全性を詳しくご説明します。女風初心者向けガイド。',
   alternates: { canonical: 'https://ura-tokyo-romance.com/first' },
 };
 
