@@ -1,0 +1,535 @@
+'use client';
+
+import { useState, useMemo, useRef, useEffect } from 'react';
+import { MessageCircle, Heart, BarChart2, X, Check, ChevronRight, Calendar, Clock, MapPin, Send, Loader2, AlertCircle } from 'lucide-react';
+import {
+  generateSchedule,
+  STATUS_CONFIG,
+  type DaySchedule,
+  type TimeSlot,
+} from '@/data/schedule';
+import { isFavorited, toggleFavorite } from '@/lib/favorites';
+import { isInCompare, toggleCompare } from '@/lib/compare';
+
+// ─── Types ────────────────────────────────────────────────────────────────
+
+interface BookingSectionProps {
+  therapistSlug: string;
+  therapistName: string;
+  areas: string[];
+}
+
+interface ModalState {
+  day: DaySchedule;
+  slot: TimeSlot | null; // null = no slot pre-selected
+}
+
+// ─── Consult Modal ─────────────────────────────────────────────────────────
+
+function ConsultModal({
+  therapistName,
+  therapistSlug,
+  areas,
+  modal,
+  onClose,
+}: {
+  therapistName: string;
+  therapistSlug: string;
+  areas: string[];
+  modal: ModalState;
+  onClose: () => void;
+}) {
+  const [nickname, setNickname] = useState('');
+  const [email, setEmail] = useState('');
+  const [lineId, setLineId] = useState('');
+  const [preferredArea, setPreferredArea] = useState(areas[0] ?? '');
+  const [message, setMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const dateLabel = modal.day.dayLabel.startsWith('今') || modal.day.dayLabel.startsWith('明')
+    ? modal.day.dayLabel
+    : (() => {
+        const [m, d] = modal.day.date.split('-').slice(1).map(Number);
+        return `${m}月${d}日（${modal.day.dayName}）`;
+      })();
+  const timeLabel = modal.slot ? `${modal.slot.startTime}〜${modal.slot.endTime}` : '未選択';
+
+  const handleSubmit = () => {
+    if (!nickname.trim()) return;
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      setSubmitted(true);
+    }, 1500);
+  };
+
+  // Trap scroll when open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-base/90 backdrop-blur-sm" onClick={onClose} />
+
+      {/* Modal */}
+      <div className="relative w-full max-w-lg bg-surface border border-border md:rounded-sm max-h-[92dvh] flex flex-col modal-slide-up">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-shrink-0">
+          <div>
+            <p className="text-gold text-[10px] tracking-widest">Consultation Request</p>
+            <h2 className="text-cream text-base font-display">{therapistName}に相談する</h2>
+          </div>
+          <button onClick={onClose} className="text-mist hover:text-stone transition-colors p-1">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="overflow-y-auto flex-1">
+          {submitted ? (
+            /* Success state */
+            <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+              <div className="w-14 h-14 bg-emerald-400/10 border border-emerald-400/30 flex items-center justify-center mb-5">
+                <Check size={24} className="text-emerald-400" />
+              </div>
+              <h3 className="font-display text-2xl text-cream mb-3">送信しました</h3>
+              <p className="text-stone text-sm leading-relaxed mb-2">
+                相談内容を{therapistName}に送りました。
+              </p>
+              <p className="text-mist text-xs leading-relaxed mb-6">
+                セラピストから返信が届くまで今しばらくお待ちください。
+                返信はメールまたはLINEでご連絡します。
+              </p>
+              <button onClick={onClose} className="btn-primary px-8 py-2.5 text-sm">
+                閉じる
+              </button>
+            </div>
+          ) : (
+            <div className="px-6 py-5 space-y-5">
+              {/* Pre-filled date/time */}
+              <div className="bg-elevated border border-border p-4 flex items-start gap-3">
+                <Calendar size={14} className="text-gold mt-0.5 flex-shrink-0" strokeWidth={1.5} />
+                <div>
+                  <p className="text-mist text-[10px] tracking-wider mb-0.5">希望日時</p>
+                  <p className="text-cream text-sm">
+                    {dateLabel}
+                    {modal.slot && <span className="text-stone ml-2">{timeLabel}</span>}
+                  </p>
+                  {!modal.slot && (
+                    <p className="text-mist text-[10px] mt-1">時間帯は下の入力欄でご指定ください</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Form */}
+              <div>
+                <label className="block text-mist text-[10px] tracking-widest mb-2">
+                  ニックネーム <span className="text-wine">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={nickname}
+                  onChange={(e) => setNickname(e.target.value)}
+                  placeholder="例：さくら"
+                  className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-mist text-[10px] tracking-widest mb-2">メールアドレス</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-mist text-[10px] tracking-widest mb-2">LINE ID</label>
+                <input
+                  type="text"
+                  value={lineId}
+                  onChange={(e) => setLineId(e.target.value)}
+                  placeholder="例：@username"
+                  className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 transition-colors"
+                />
+                <p className="text-mist text-[10px] mt-1">メールまたはLINEのどちらかをご入力ください</p>
+              </div>
+
+              {!modal.slot && (
+                <div>
+                  <label className="block text-mist text-[10px] tracking-widest mb-2">希望時間帯</label>
+                  <input
+                    type="text"
+                    placeholder="例：18:00〜21:00頃"
+                    className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 transition-colors"
+                  />
+                </div>
+              )}
+
+              <div>
+                <label className="block text-mist text-[10px] tracking-widest mb-2">
+                  希望エリア <span className="text-wine">*</span>
+                </label>
+                <select
+                  value={preferredArea}
+                  onChange={(e) => setPreferredArea(e.target.value)}
+                  className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50"
+                >
+                  {areas.map((area) => (
+                    <option key={area} value={area}>{area}</option>
+                  ))}
+                  <option value="その他">その他（備考欄に記入）</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-mist text-[10px] tracking-widest mb-2">相談内容</label>
+                <textarea
+                  rows={4}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="初めての利用で不安なことがあれば何でもご相談ください。"
+                  className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 resize-none placeholder:text-mist"
+                />
+              </div>
+
+              {/* Legal notice */}
+              <div className="bg-elevated/50 border border-border/50 p-3 flex items-start gap-2">
+                <AlertCircle size={12} className="text-mist flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+                <p className="text-mist text-[10px] leading-relaxed">
+                  当サービスは情報掲載とマッチングを提供します。実際のサービス内容は当事者間の合意に基づきます。
+                  18歳未満のご利用は禁止されています。送信いただいた情報はプライバシーポリシーに基づき管理します。
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        {!submitted && (
+          <div className="px-6 py-4 border-t border-border flex-shrink-0">
+            <button
+              onClick={handleSubmit}
+              disabled={!nickname.trim() || submitting}
+              className="w-full btn-primary py-3 flex items-center justify-center gap-2 text-sm disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {submitting ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
+              {submitting ? '送信中...' : '相談を送る'}
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Sticky Bottom Bar ─────────────────────────────────────────────────────
+
+function StickyBar({
+  therapistSlug,
+  therapistName,
+  onConsult,
+}: {
+  therapistSlug: string;
+  therapistName: string;
+  onConsult: () => void;
+}) {
+  const [favorited, setFavorited] = useState(false);
+  const [inCompare, setInCompare] = useState(false);
+  const [compareFlash, setCompareFlash] = useState(false);
+
+  useEffect(() => {
+    setFavorited(isFavorited(therapistSlug));
+    setInCompare(isInCompare(therapistSlug));
+    const onFav = () => setFavorited(isFavorited(therapistSlug));
+    const onCmp = () => setInCompare(isInCompare(therapistSlug));
+    window.addEventListener('favoritesUpdate', onFav);
+    window.addEventListener('compareUpdate', onCmp);
+    return () => {
+      window.removeEventListener('favoritesUpdate', onFav);
+      window.removeEventListener('compareUpdate', onCmp);
+    };
+  }, [therapistSlug]);
+
+  const handleFavorite = () => {
+    toggleFavorite(therapistSlug);
+    setFavorited(isFavorited(therapistSlug));
+  };
+
+  const handleCompare = () => {
+    const result = toggleCompare(therapistSlug);
+    setInCompare(isInCompare(therapistSlug));
+    if (!result.added && result.reason === 'max_reached') {
+      setCompareFlash(true);
+      setTimeout(() => setCompareFlash(false), 2000);
+    }
+  };
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden">
+      {compareFlash && (
+        <div className="bg-wine text-cream text-[10px] text-center py-1.5 px-4">
+          比較は最大3名まで
+        </div>
+      )}
+      <div className="bg-base/95 backdrop-blur-md border-t border-border">
+        <div className="flex items-stretch">
+          <button
+            onClick={onConsult}
+            className="flex-1 flex flex-col items-center gap-1 py-3.5 text-cream hover:bg-elevated transition-colors border-r border-border"
+          >
+            <MessageCircle size={18} strokeWidth={1.5} />
+            <span className="text-[10px] tracking-wide">相談する</span>
+          </button>
+          <button
+            onClick={handleFavorite}
+            className="flex-1 flex flex-col items-center gap-1 py-3.5 border-r border-border transition-colors hover:bg-elevated"
+          >
+            <Heart
+              size={18}
+              strokeWidth={1.5}
+              className={favorited ? 'text-wine fill-wine' : 'text-stone'}
+            />
+            <span className={`text-[10px] tracking-wide ${favorited ? 'text-wine' : 'text-stone'}`}>
+              {favorited ? '保存済み' : 'お気に入り'}
+            </span>
+          </button>
+          <button
+            onClick={handleCompare}
+            className="flex-1 flex flex-col items-center gap-1 py-3.5 transition-colors hover:bg-elevated"
+          >
+            <BarChart2
+              size={18}
+              strokeWidth={1.5}
+              className={inCompare ? 'text-gold' : 'text-stone'}
+            />
+            <span className={`text-[10px] tracking-wide ${inCompare ? 'text-gold' : 'text-stone'}`}>
+              {inCompare ? '比較中' : '比較する'}
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Main Booking Section ──────────────────────────────────────────────────
+
+export default function BookingSection({ therapistSlug, therapistName, areas }: BookingSectionProps) {
+  const schedule = useMemo(() => generateSchedule(therapistSlug, 14), [therapistSlug]);
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [modal, setModal] = useState<ModalState | null>(null);
+  const dateBarRef = useRef<HTMLDivElement>(null);
+
+  const selectedDay = schedule[selectedIdx];
+
+  const openModal = (day: DaySchedule, slot: TimeSlot | null = null) => {
+    setModal({ day, slot });
+  };
+
+  const handleConsultFromStickyBar = () => {
+    // Scroll to calendar first if on mobile
+    const el = document.getElementById('availability');
+    if (el && window.innerWidth < 768) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // On desktop, open modal with currently selected day
+      openModal(selectedDay);
+    }
+  };
+
+  const formatFullDate = (day: DaySchedule) => {
+    const [, m, d] = day.date.split('-').map(Number);
+    if (day.dayLabel === '今日') return `今日 ${m}月${d}日（${day.dayName}）`;
+    if (day.dayLabel === '明日') return `明日 ${m}月${d}日（${day.dayName}）`;
+    return `${m}月${d}日（${day.dayName}）`;
+  };
+
+  return (
+    <>
+      {/* ── Availability Calendar ─────────────────────────── */}
+      <section
+        id="availability"
+        className="py-10 px-5 bg-[#0D0B0B] border-y border-border"
+      >
+        <div className="max-w-4xl mx-auto">
+          {/* Section header */}
+          <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center gap-3">
+              <Calendar size={16} className="text-gold" strokeWidth={1.5} />
+              <div>
+                <p className="text-gold text-[10px] tracking-widest">Availability</p>
+                <h2 className="font-display text-xl text-cream">出勤・空き状況</h2>
+              </div>
+            </div>
+            <div className="text-right">
+              <p className="text-mist text-[10px]">本日更新</p>
+              <div className="flex items-center gap-3 mt-1.5">
+                {(['available', 'limited', 'full', 'off'] as const).map((s) => (
+                  <div key={s} className="flex items-center gap-1">
+                    <span className={`w-1.5 h-1.5 rounded-full ${STATUS_CONFIG[s].dotColor}`} />
+                    <span className="text-mist text-[9px]">{STATUS_CONFIG[s].label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Date bar */}
+          <div
+            ref={dateBarRef}
+            className="flex gap-2 overflow-x-auto pb-3 mb-6 scrollbar-hide -mx-5 px-5"
+          >
+            {schedule.map((day, i) => {
+              const cfg = STATUS_CONFIG[day.overallStatus];
+              const isSelected = i === selectedIdx;
+              return (
+                <button
+                  key={day.date}
+                  onClick={() => setSelectedIdx(i)}
+                  className={`flex-shrink-0 flex flex-col items-center gap-1.5 w-14 py-3 border transition-all duration-200 ${
+                    isSelected
+                      ? `${cfg.borderColor} ${cfg.bgColor}`
+                      : 'border-border hover:border-gold/30 bg-elevated'
+                  }`}
+                >
+                  <span className="text-[9px] tracking-wide text-mist leading-none">
+                    {day.dayName}
+                  </span>
+                  <span
+                    className={`text-base font-display leading-none ${
+                      isSelected ? cfg.textColor : 'text-cream'
+                    }`}
+                  >
+                    {day.dayLabel === '今日' || day.dayLabel === '明日'
+                      ? day.dayLabel.slice(0, 2)
+                      : (() => {
+                          const parts = day.dayLabel.split('/');
+                          return parts[1];
+                        })()}
+                  </span>
+                  <span className={`w-1.5 h-1.5 rounded-full ${cfg.dotColor}`} />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Day detail */}
+          <div className="card-luxury overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border bg-elevated/30">
+              <h3 className="text-cream text-sm font-display">{formatFullDate(selectedDay)}</h3>
+              <span
+                className={`text-[10px] px-2.5 py-1 border ${STATUS_CONFIG[selectedDay.overallStatus].textColor} ${STATUS_CONFIG[selectedDay.overallStatus].borderColor} ${STATUS_CONFIG[selectedDay.overallStatus].bgColor}`}
+              >
+                {STATUS_CONFIG[selectedDay.overallStatus].label}
+              </span>
+            </div>
+
+            {selectedDay.overallStatus === 'off' || selectedDay.slots.length === 0 ? (
+              <div className="flex flex-col items-center py-10 gap-3">
+                <Clock size={24} className="text-border" strokeWidth={1} />
+                <p className="text-mist text-sm">この日は休みです</p>
+                <p className="text-mist text-[10px]">前後の日程をご確認ください</p>
+              </div>
+            ) : (
+              <div className="divide-y divide-border/50">
+                {selectedDay.slots.map((slot) => {
+                  const cfg = STATUS_CONFIG[slot.status];
+                  const canBook = slot.status === 'available' || slot.status === 'limited' || slot.status === 'inquiry';
+                  return (
+                    <div
+                      key={slot.id}
+                      className={`flex items-center gap-4 px-5 py-4 transition-colors ${canBook ? 'hover:bg-elevated/50' : ''}`}
+                    >
+                      {/* Status dot */}
+                      <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cfg.dotColor}`} />
+
+                      {/* Time */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-cream text-sm">
+                          {slot.startTime}
+                          <span className="text-mist mx-1">〜</span>
+                          {slot.endTime}
+                        </p>
+                        <p className={`text-xs mt-0.5 ${cfg.textColor}`}>
+                          {cfg.label}
+                          {slot.status === 'limited' && slot.remaining != null && (
+                            <span className="ml-1 text-[10px]">（残り{slot.remaining}枠）</span>
+                          )}
+                        </p>
+                      </div>
+
+                      {/* Action */}
+                      {canBook ? (
+                        <button
+                          onClick={() => openModal(selectedDay, slot)}
+                          className={`flex-shrink-0 flex items-center gap-1.5 text-xs px-4 py-2 border transition-colors ${
+                            slot.status === 'available'
+                              ? 'border-emerald-400/40 text-emerald-400 hover:bg-emerald-400/10'
+                              : slot.status === 'limited'
+                              ? 'border-orange-400/40 text-orange-400 hover:bg-orange-400/10'
+                              : 'border-sky-300/40 text-sky-300 hover:bg-sky-300/10'
+                          }`}
+                        >
+                          <MessageCircle size={12} />
+                          相談する
+                        </button>
+                      ) : (
+                        <span className="flex-shrink-0 text-mist text-xs">受付終了</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Footer CTA */}
+            {selectedDay.overallStatus !== 'off' && (
+              <div className="px-5 py-4 border-t border-border/50 bg-elevated/20 flex items-center justify-between">
+                <p className="text-mist text-[10px]">
+                  {formatFullDate(selectedDay)}の相談を申し込む
+                </p>
+                <button
+                  onClick={() => openModal(selectedDay)}
+                  className="flex items-center gap-1.5 text-gold text-xs hover:underline"
+                >
+                  日程のみ相談する <ChevronRight size={12} />
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Note about scheduling */}
+          <p className="text-mist text-[10px] mt-4 leading-relaxed">
+            ※ 表示されているスケジュールはセラピストが更新した目安です。確定は相談成立後となります。
+            当サービスは情報掲載とマッチングを提供します。
+          </p>
+        </div>
+      </section>
+
+      {/* ── Consult Modal ────────────────────────────────── */}
+      {modal && (
+        <ConsultModal
+          therapistName={therapistName}
+          therapistSlug={therapistSlug}
+          areas={areas}
+          modal={modal}
+          onClose={() => setModal(null)}
+        />
+      )}
+
+      {/* ── Sticky Bottom Bar (mobile only) ──────────────── */}
+      <StickyBar
+        therapistSlug={therapistSlug}
+        therapistName={therapistName}
+        onConsult={handleConsultFromStickyBar}
+      />
+    </>
+  );
+}

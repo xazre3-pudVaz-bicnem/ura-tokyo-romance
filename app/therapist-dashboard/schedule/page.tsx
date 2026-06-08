@@ -1,16 +1,23 @@
 'use client';
 
 import { useState } from 'react';
-import { Calendar, Clock, Save, Check, FileText, Sparkles } from 'lucide-react';
+import { Calendar, Clock, Save, Check, FileText, Sparkles, Plus, Trash2, Info } from 'lucide-react';
 import Link from 'next/link';
+import { STATUS_CONFIG, type AvailabilityStatus } from '@/data/schedule';
 
-const days = ['月', '火', '水', '木', '金', '土', '日'];
-const timeSlots = ['10:00〜', '12:00〜', '14:00〜', '16:00〜', '18:00〜', '20:00〜', '22:00〜'];
+const DAYS = ['月', '火', '水', '木', '金', '土', '日'];
+
+const DEFAULT_SLOTS: Array<{ start: string; end: string; status: AvailabilityStatus }> = [
+  { start: '12:00', end: '15:00', status: 'available' },
+  { start: '15:00', end: '18:00', status: 'available' },
+  { start: '18:00', end: '24:00', status: 'limited' },
+];
 
 export default function SchedulePage() {
   const [selectedDays, setSelectedDays] = useState<string[]>(['月', '水', '金', '土']);
   const [availableToday, setAvailableToday] = useState(false);
   const [note, setNote] = useState('月・水・金・土 出勤');
+  const [slots, setSlots] = useState(DEFAULT_SLOTS);
   const [saved, setSaved] = useState(false);
 
   const toggleDay = (day: string) => {
@@ -19,42 +26,52 @@ export default function SchedulePage() {
     );
   };
 
+  const updateSlotStatus = (idx: number, status: AvailabilityStatus) => {
+    setSlots((prev) => prev.map((s, i) => i === idx ? { ...s, status } : s));
+  };
+
+  const removeSlot = (idx: number) => {
+    setSlots((prev) => prev.filter((_, i) => i !== idx));
+  };
+
   return (
     <div>
       <h2 className="font-display text-2xl text-cream mb-6">スケジュール管理</h2>
 
       <div className="space-y-6">
-        {/* Today availability */}
+        {/* Today toggle */}
         <div className="card-luxury p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Clock size={16} className="text-gold" strokeWidth={1.5} />
               <div>
                 <p className="text-cream text-sm">今日会えるに表示する</p>
-                <p className="text-stone text-xs mt-0.5">ONにすると「今日会えるセラピスト」に表示されます</p>
+                <p className="text-stone text-xs mt-0.5">ONにすると「今日会えるセラピスト」とカレンダーに表示されます</p>
               </div>
             </div>
             <button
               onClick={() => setAvailableToday(!availableToday)}
-              className={`w-12 h-6 rounded-full transition-colors duration-200 relative ${
-                availableToday ? 'bg-gold' : 'bg-border'
-              }`}
+              className={`w-12 h-6 rounded-full transition-colors duration-200 relative ${availableToday ? 'bg-gold' : 'bg-border'}`}
             >
-              <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-200 ${
-                availableToday ? 'translate-x-6' : ''
-              }`} />
+              <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-200 ${availableToday ? 'translate-x-6' : ''}`} />
             </button>
           </div>
+          {availableToday && (
+            <div className="mt-4 bg-emerald-400/5 border border-emerald-400/20 px-4 py-2.5 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-emerald-400 text-xs">本日の受付中スロットがセラピスト一覧・トップページに表示されます</p>
+            </div>
+          )}
         </div>
 
-        {/* Weekly schedule */}
+        {/* Weekly working days */}
         <div className="card-luxury p-6">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-5">
             <Calendar size={16} className="text-gold" strokeWidth={1.5} />
             <p className="text-cream text-sm">定期出勤曜日</p>
           </div>
-          <div className="flex flex-wrap gap-3 mb-4">
-            {days.map((day) => (
+          <div className="flex flex-wrap gap-3 mb-5">
+            {DAYS.map((day) => (
               <button
                 key={day}
                 onClick={() => toggleDay(day)}
@@ -69,7 +86,7 @@ export default function SchedulePage() {
             ))}
           </div>
           <div>
-            <label className="block text-mist text-[10px] tracking-widest mb-2">出勤メモ（プロフィールに表示）</label>
+            <label className="block text-mist text-[10px] tracking-widest mb-2">プロフィール表示メモ</label>
             <input
               value={note}
               onChange={(e) => setNote(e.target.value)}
@@ -79,15 +96,51 @@ export default function SchedulePage() {
           </div>
         </div>
 
-        {/* Time slots */}
-        <div className="card-luxury p-6">
-          <p className="text-gold text-[10px] tracking-widest mb-4">対応可能時間帯</p>
-          <div className="flex flex-wrap gap-2">
-            {timeSlots.map((slot) => (
-              <span key={slot} className="tag-pill text-xs">{slot}</span>
-            ))}
+        {/* Time slots with availability status */}
+        <div className="card-luxury">
+          <div className="px-6 py-4 border-b border-border flex items-center justify-between">
+            <div>
+              <p className="text-cream text-sm">時間帯と受付状況</p>
+              <p className="text-mist text-[10px] mt-0.5">各時間枠の受付状況を設定します。プロフィールのカレンダーに反映されます。</p>
+            </div>
           </div>
-          <p className="text-mist text-[10px] mt-3">詳細な時間設定はグランドオープン後に対応予定</p>
+
+          <div className="divide-y divide-border/50">
+            {slots.map((slot, idx) => {
+              const cfg = STATUS_CONFIG[slot.status];
+              return (
+                <div key={idx} className="flex items-center gap-4 px-6 py-4">
+                  <div className="flex items-center gap-2 flex-1">
+                    <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cfg.dotColor}`} />
+                    <span className="text-cream text-sm">{slot.start}〜{slot.end}</span>
+                  </div>
+                  <select
+                    value={slot.status}
+                    onChange={(e) => updateSlotStatus(idx, e.target.value as AvailabilityStatus)}
+                    className={`bg-elevated border text-sm px-3 py-1.5 outline-none ${cfg.borderColor} ${cfg.textColor}`}
+                  >
+                    <option value="available">受付中</option>
+                    <option value="limited">残りわずか</option>
+                    <option value="full">満枠</option>
+                    <option value="inquiry">要相談</option>
+                    <option value="off">休み</option>
+                  </select>
+                  <button onClick={() => removeSlot(idx)} className="text-mist hover:text-wine transition-colors">
+                    <Trash2 size={14} />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="px-6 py-4 border-t border-border/50">
+            <div className="bg-elevated/50 border border-border p-3 flex items-start gap-2">
+              <Info size={12} className="text-gold flex-shrink-0 mt-0.5" strokeWidth={1.5} />
+              <p className="text-mist text-[10px] leading-relaxed">
+                受付状況を設定するとプロフィールページの空き状況カレンダーに反映され、利用者が日付と時間を選んで直接相談を送れるようになります。
+              </p>
+            </div>
+          </div>
         </div>
 
         <button

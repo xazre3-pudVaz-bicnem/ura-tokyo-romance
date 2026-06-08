@@ -7,6 +7,7 @@ import TherapistCard from '@/components/ui/TherapistCard';
 import FavoriteButton from '@/components/ui/FavoriteButton';
 import CompareButton from '@/components/ui/CompareButton';
 import HistoryTracker from '@/components/ui/HistoryTracker';
+import BookingSection from '@/components/ui/BookingSection';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -211,10 +212,10 @@ export default async function TherapistDetailPage({ params }: Props) {
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-3">
-                <Link href={`/therapists/${therapist.slug}/consult`} className="btn-primary flex items-center gap-2">
+                <a href="#availability" className="btn-primary flex items-center gap-2">
                   <MessageCircle size={15} />
-                  {therapist.name}に相談する
-                </Link>
+                  空き状況を確認する
+                </a>
                 {therapist.instagram && (
                   <a href={therapist.instagram} target="_blank" rel="noopener noreferrer" className="btn-secondary flex items-center gap-2">
                     <Instagram size={15} />
@@ -227,8 +228,15 @@ export default async function TherapistDetailPage({ params }: Props) {
         </div>
       </section>
 
+      {/* Availability Calendar + Booking Flow */}
+      <BookingSection
+        therapistSlug={therapist.slug}
+        therapistName={therapist.name}
+        areas={therapist.areas}
+      />
+
       {/* Profile details */}
-      <section className="section-py px-5">
+      <section className="section-py px-5 pb-24 md:pb-16">
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Self intro */}
           <div className="card-luxury p-8">
