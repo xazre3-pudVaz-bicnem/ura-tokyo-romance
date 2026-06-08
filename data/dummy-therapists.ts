@@ -51,7 +51,7 @@ export const dummyTherapists: Therapist[] = [
       '「話すだけで気持ちが整理された」と言っていただけることが多いです。答えを出すより、一緒に考える時間を大切にしています。',
     messageToUser:
       '沈黙が心地よい時間も、私は好きです。どうぞ、あなたのペースで。',
-    image: '/images/therapists/t01.jpg',
+    image: '/images/t01.png',
     scheduleNote: '月・水・金・土 出勤',
     isNew: false,
     showInRanking: true,
@@ -90,7 +90,7 @@ export const dummyTherapists: Therapist[] = [
       '「また会いたい」と思っていただける時間を作ることが得意です。ただそこにいるだけで特別な空気感がある、とお声をいただきます。',
     messageToUser:
       'あなたが何を求めているか、言葉にしなくても感じ取ります。ただここにいる時間を。',
-    image: '/images/therapists/t02.jpg',
+    image: '/images/t02.png',
     scheduleNote: '火・木・土・日 出勤',
     isNew: false,
     showInRanking: true,
@@ -126,7 +126,7 @@ export const dummyTherapists: Therapist[] = [
       '「こんなに緊張がほぐれると思わなかった」というお声をいただきます。女風が初めての方にこそ、まず会ってみてほしいタイプです。',
     messageToUser:
       '緊張しなくて大丈夫です。ゆっくり、あなたのペースで。初めての方も安心してご連絡ください。',
-    image: '/images/therapists/t06.jpg',
+    image: '/images/t06.png',
     scheduleNote: '土・日・月 出勤（週3日）',
     isNew: true,
     showInRanking: true,
@@ -161,7 +161,7 @@ export const dummyTherapists: Therapist[] = [
       'さまざまな年代の方にご利用いただいています。「ただ傍にいてほしい」というご要望にも、深い包容力でお応えします。',
     messageToUser:
       '無理なく、ゆっくり。あなたのペースに合わせます。何でも話してください、秘密は守ります。',
-    image: '/images/therapists/t04.jpg',
+    image: '/images/t04.png',
     scheduleNote: '月・水・金 出勤',
     isNew: false,
     showInRanking: true,
@@ -197,7 +197,7 @@ export const dummyTherapists: Therapist[] = [
       '初めての方から「こんなに話せると思わなかった」とご感想をいただきます。王道ですが、それだけ安心感があると思っています。',
     messageToUser:
       '初めてでも、久しぶりでも、全力で楽しい時間にします。気軽に声をかけてください。',
-    image: '/images/therapists/t05.jpg',
+    image: '/images/t05.png',
     scheduleNote: '水・木・土 出勤',
     isNew: true,
     showInRanking: false,
@@ -232,7 +232,7 @@ export const dummyTherapists: Therapist[] = [
       '「話すより、ただそこにいてほしかった」というご感想をいただきます。洗練された空間・雰囲気を好む方に選んでいただいています。',
     messageToUser:
       'うるさくしません。でも、ちゃんとそこにいます。',
-    image: '/images/therapists/t03.jpg',
+    image: '/images/t03.png',
     scheduleNote: '火・金・日 出勤',
     isNew: false,
     showInRanking: true,
@@ -268,7 +268,7 @@ export const dummyTherapists: Therapist[] = [
       '「こんなに気を遣わなくていいんだ」と言っていただけることが多いです。穏やかで包み込むような空気感が得意です。',
     messageToUser:
       '当日の急なご相談も大歓迎です。気軽にどうぞ。',
-    image: '/images/therapists/t08.jpg',
+    image: '/images/t08.png',
     scheduleNote: '土・日 出勤（週2日）',
     isNew: true,
     showInRanking: false,
@@ -302,7 +302,7 @@ export const dummyTherapists: Therapist[] = [
       '「おしゃれなレストランで一緒に過ごしたい」「美術展に同行してほしい」というご要望に応えています。東京の街に溶け込んだ自然な時間が得意です。',
     messageToUser:
       '気張らなくていいです。ただここにいる、一緒に歩く、それだけでいい。',
-    image: '/images/therapists/t07.jpg',
+    image: '/images/t07.png',
     scheduleNote: '水・木・土 出勤',
     isNew: false,
     showInRanking: true,
