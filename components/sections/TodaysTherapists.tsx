@@ -14,11 +14,11 @@ export default function TodaysTherapists() {
         {/* Header */}
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12">
           <SectionTitle
-            en="Today's Schedule"
-            ja="本日の出勤情報"
+            en="Today's Therapists"
+            ja="今日会えるセラピスト"
             align="left"
             className="mb-0"
-            description="本日ご対応可能なセラピストをご紹介します。最新の出勤情報はLINEにてご確認いただけます。"
+            description="本日ご対応可能な掲載セラピストをご紹介します。空き状況はプロフィールページでご確認いただけます。"
           />
           <Link href="/schedule" className="text-gold text-xs tracking-widest hover:text-gold-light transition-colors mt-6 md:mt-0 flex items-center gap-2">
             出勤一覧を見る <span>→</span>
@@ -38,13 +38,13 @@ export default function TodaysTherapists() {
         {/* CTA */}
         <div className="mt-10 p-6 border border-border/50 text-center">
           <p className="text-stone text-sm mb-4">
-            出勤状況はリアルタイムで変動します。気になるセラピストのプロフィールから予約相談フォームでご連絡ください。
+            空き状況はリアルタイムで変動します。気になる掲載セラピストのプロフィールから相談申請を送れます。
           </p>
           <a
-            href="/schedule"
+            href="/today"
             className="btn-primary inline-flex"
           >
-            本日の出勤をすべて見る
+            今日会えるセラピストをすべて見る
           </a>
         </div>
       </div>

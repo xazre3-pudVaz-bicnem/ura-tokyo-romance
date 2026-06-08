@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { UserPlus, Check } from 'lucide-react';
 
 const merits = [
-  'SEOに強いプロフィールページを持てる',
+  '検索で見つけてもらいやすいプロフィールページを持てる',
   '本人確認済バッジで信頼感アップ',
   '出勤情報を自由に更新できる',
-  '口コミを蓄積できる',
+  'グランドオープン後に口コミを蓄積できる',
   'SNSだけに頼らない集客導線',
-  'ランキング・新人枠で露出増',
+  'ランキング・新人枠で掲載露出を増やせる',
 ];
 
 export default function RecruitCTA() {
@@ -28,7 +28,7 @@ export default function RecruitCTA() {
                 </h2>
                 <span className="block w-16 h-px bg-gradient-to-r from-transparent via-wine to-transparent mb-6" />
                 <p className="text-stone text-sm leading-relaxed mb-6">
-                  裏東京ロマンスは、店舗に所属せず、自分のペースで活動したいセラピストを支援するプラットフォームです。
+                  裏東京ロマンスは、店舗に所属せず、自分のペースで活動したいセラピストを支援するマッチングプラットフォームです。
                   プロフィールページを持ち、東京で女風を探している女性に見つけてもらいましょう。
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-8">
@@ -42,22 +42,22 @@ export default function RecruitCTA() {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link href="/register" className="btn-primary flex items-center gap-2">
                     <UserPlus size={15} />
-                    セラピスト登録はこちら
+                    セラピスト登録申請はこちら
                   </Link>
                   <Link href="/register/info" className="btn-secondary">
-                    セラピスト向け説明を見る
+                    掲載について詳しく見る
                   </Link>
                 </div>
               </div>
 
               {/* Right - Plans preview */}
               <div className="lg:w-72 flex-shrink-0 w-full">
-                <p className="text-gold text-[10px] tracking-widest mb-4">掲載プラン（仮）</p>
+                <p className="text-gold text-[10px] tracking-widest mb-4">掲載プラン（予定）</p>
                 <div className="space-y-3">
                   {[
-                    { plan: '無料掲載', desc: 'プロフィール掲載のみ', price: '¥0' },
-                    { plan: 'スタンダード', desc: 'プロフィール＋出勤情報＋検索上位', price: '月額 ¥×,000〜', highlight: false },
-                    { plan: 'プレミアム', desc: '特集掲載＋ランキング強化＋SEO記事', price: '月額 ¥×,000〜', highlight: true },
+                    { plan: '無料掲載', desc: 'プロフィール掲載のみ', price: '¥0', highlight: false },
+                    { plan: 'スタンダード', desc: 'プロフィール＋出勤情報＋検索上位表示', price: '先行登録受付中', highlight: false },
+                    { plan: 'プレミアム', desc: '特集掲載＋ランキング強化＋集客につながる記事', price: '先行登録受付中', highlight: true },
                   ].map((item) => (
                     <div
                       key={item.plan}
@@ -65,14 +65,14 @@ export default function RecruitCTA() {
                     >
                       <div className="flex items-center justify-between mb-1">
                         <span className={`text-sm ${item.highlight ? 'text-gold' : 'text-cream'}`}>{item.plan}</span>
-                        <span className="text-gold text-xs">{item.price}</span>
+                        <span className={`text-xs ${item.price === '¥0' ? 'text-gold' : 'text-stone'}`}>{item.price}</span>
                       </div>
                       <p className="text-mist text-[10px]">{item.desc}</p>
                     </div>
                   ))}
                 </div>
                 <p className="text-mist text-[10px] mt-3">
-                  ※料金は正式公開前に決定します
+                  ※有料プランの料金は正式公開前に案内予定です
                 </p>
               </div>
             </div>

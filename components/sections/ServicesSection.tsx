@@ -7,7 +7,7 @@ const features = [
     icon: Search,
     title: 'セラピストを探す・比較する',
     desc: 'エリア・雰囲気・料金・口コミ数など多彩な条件で絞り込み。複数のセラピストを比較して選べます。',
-    detail: '全8名掲載中（OPEN時）',
+    detail: 'グランドオープン準備中',
   },
   {
     icon: ShieldCheck,

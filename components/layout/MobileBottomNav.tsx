@@ -1,23 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { Search, Calendar, Heart, Sparkles, Home } from 'lucide-react';
+import { Search, Calendar, Sparkles, UserPlus } from 'lucide-react';
 
 const items = [
-  { href: '/', icon: Home, label: 'ホーム', primary: false },
   { href: '/therapists', icon: Search, label: '探す', primary: true },
   { href: '/today', icon: Calendar, label: '今日会える', primary: false },
   { href: '/diagnosis', icon: Sparkles, label: '診断', primary: false },
-  { href: '/favorites', icon: Heart, label: 'お気に入り', primary: false },
+  { href: '/register', icon: UserPlus, label: '登録', primary: false },
 ];
 
 export default function MobileBottomNav() {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-base/95 backdrop-blur-xl border-t border-border safe-area-bottom">
-      <div
-        className="grid"
-        style={{ gridTemplateColumns: `repeat(${items.length}, 1fr)` }}
-      >
+      <div className="grid grid-cols-4">
         {items.map((item) => {
           const Icon = item.icon;
           return (
@@ -27,7 +23,7 @@ export default function MobileBottomNav() {
                   item.primary ? 'text-gold' : 'text-stone hover:text-cream'
                 }`}
               >
-                <Icon size={18} strokeWidth={1.5} className={item.primary ? 'text-gold' : ''} />
+                <Icon size={18} strokeWidth={1.5} />
                 <span className="text-[9px] tracking-wider leading-none">{item.label}</span>
               </span>
             </Link>

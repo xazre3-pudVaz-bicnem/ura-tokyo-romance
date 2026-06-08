@@ -162,10 +162,16 @@ export default function Hero() {
 
           {/* Tagline */}
           <p
-            className="font-sans text-[clamp(0.82rem,1.6vw,0.97rem)] text-stone/90 tracking-[0.1em] leading-relaxed mb-10 opacity-0 animate-fade-up"
+            className="font-sans text-[clamp(0.82rem,1.6vw,0.97rem)] text-stone/90 tracking-[0.1em] leading-relaxed mb-2 opacity-0 animate-fade-up"
             style={{ animationDelay: '0.52s' }}
           >
-            東京で、あなたに合う女風セラピストを探す。
+            東京の女風セラピストを探す・比較する・相談する。
+          </p>
+          <p
+            className="font-sans text-[clamp(0.72rem,1.3vw,0.82rem)] text-stone/50 tracking-[0.06em] leading-relaxed mb-10 opacity-0 animate-fade-up"
+            style={{ animationDelay: '0.58s' }}
+          >
+            本人確認済みの掲載セラピストを、あなたのペースで選ぼう。
           </p>
 
           {/* ── Search Card ── */}

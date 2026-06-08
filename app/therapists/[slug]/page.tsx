@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MapPin, Clock, Star, Heart, ShieldCheck, MessageCircle, Flag, Instagram, Check, Eye } from 'lucide-react';
+import { MapPin, Clock, Star, ShieldCheck, MessageCircle, Calendar, Flag, Instagram, Check, Eye } from 'lucide-react';
 import { dummyTherapists, BADGE_LABELS, AUTH_LEVEL_LABELS, AUTH_LEVEL_COLORS } from '@/data/dummy-therapists';
 import TherapistCard from '@/components/ui/TherapistCard';
 import FavoriteButton from '@/components/ui/FavoriteButton';
@@ -149,15 +149,13 @@ export default async function TherapistDetailPage({ params }: Props) {
                 </div>
                 <div className="text-center p-3 bg-elevated border border-border">
                   <p className="text-stone text-[10px] tracking-wider mb-1">口コミ</p>
-                  <p className="text-cream text-xl font-display flex items-center justify-center gap-1">
-                    <Star size={13} className="text-gold fill-gold" />
-                    <span className="text-base">{therapist.reviewCount}</span>
-                  </p>
+                  <p className="text-mist text-xs font-display">準備中</p>
+                  <p className="text-mist text-[9px]">8月公開</p>
                 </div>
               </div>
 
-              {/* View counts */}
-              <div className="grid grid-cols-2 gap-3 mb-6">
+              {/* View counts — サンプル表示 */}
+              <div className="grid grid-cols-2 gap-3 mb-1">
                 <div className="p-3 bg-elevated border border-border flex items-center gap-3">
                   <Eye size={14} className="text-stone" strokeWidth={1.5} />
                   <div>
@@ -173,6 +171,7 @@ export default async function TherapistDetailPage({ params }: Props) {
                   </div>
                 </div>
               </div>
+              <p className="text-mist text-[9px] mb-5">※閲覧数はサンプル表示です。グランドオープン後に実データに更新されます。</p>
 
               {/* Area */}
               <div className="flex items-start gap-2 mb-3">
@@ -214,6 +213,10 @@ export default async function TherapistDetailPage({ params }: Props) {
               <div className="flex flex-col sm:flex-row gap-3">
                 <a href="#availability" className="btn-primary flex items-center gap-2">
                   <MessageCircle size={15} />
+                  このセラピストに相談する
+                </a>
+                <a href="#availability" className="btn-secondary flex items-center gap-2">
+                  <Calendar size={15} />
                   空き状況を確認する
                 </a>
                 {therapist.instagram && (
@@ -258,32 +261,16 @@ export default async function TherapistDetailPage({ params }: Props) {
             </div>
           )}
 
-          {/* Reviews placeholder */}
+          {/* Reviews */}
           <div>
             <p className="text-gold text-[10px] tracking-widest mb-4 flex items-center gap-2">
               <Star size={12} className="text-gold fill-gold" />
-              口コミ・評価（{therapist.reviewCount}件）
+              口コミ・評価
             </p>
-            {therapist.reviewCount > 0 ? (
-              <div className="space-y-4">
-                {[
-                  { text: '初めて利用しましたが、とても話しやすくて時間を忘れるくらい楽しめました。また絶対利用したいです。', rating: 5 },
-                  { text: '丁寧で誠実な対応が印象的でした。事前のやり取りから当日まで安心して過ごせました。', rating: 5 },
-                ].map((review, i) => (
-                  <div key={i} className="card-luxury p-6">
-                    <div className="flex items-center gap-1 mb-3">
-                      {Array.from({ length: review.rating }).map((_, j) => (
-                        <Star key={j} size={12} className="text-gold fill-gold" />
-                      ))}
-                    </div>
-                    <p className="text-stone text-xs leading-relaxed">{review.text}</p>
-                    <p className="text-mist text-[10px] mt-3">匿名ユーザー</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-mist text-sm">まだ口コミがありません。最初の口コミを投稿しませんか？</p>
-            )}
+            <div className="bg-elevated border border-border p-6 text-center">
+              <p className="text-stone text-sm mb-1">口コミ機能はグランドオープン後に公開予定です</p>
+              <p className="text-mist text-[10px]">2026年8月1日より、実際にご利用いただいた方の口コミ・評価を掲載します</p>
+            </div>
           </div>
 
           {/* Report + Back */}

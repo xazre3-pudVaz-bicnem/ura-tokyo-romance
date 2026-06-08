@@ -1,17 +1,13 @@
 import type { Metadata } from 'next';
 import Hero from '@/components/sections/Hero';
-import SearchSection from '@/components/sections/SearchSection';
 import TodaysTherapists from '@/components/sections/TodaysTherapists';
-import NewFaceSection from '@/components/sections/NewFaceSection';
-import RankingSection from '@/components/sections/RankingSection';
+import SearchSection from '@/components/sections/SearchSection';
 import ServicesSection from '@/components/sections/ServicesSection';
-import FirstVisitCTA from '@/components/sections/FirstVisitCTA';
+import RecruitCTA from '@/components/sections/RecruitCTA';
+import RankingSection from '@/components/sections/RankingSection';
 import SafetySection from '@/components/sections/SafetySection';
 import PricingSection from '@/components/sections/PricingSection';
-import BookingFlow from '@/components/sections/BookingFlow';
-import ReviewsSection from '@/components/sections/ReviewsSection';
 import BlogSection from '@/components/sections/BlogSection';
-import RecruitCTA from '@/components/sections/RecruitCTA';
 import FaqSection from '@/components/sections/FaqSection';
 
 export const metadata: Metadata = {
@@ -37,18 +33,14 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <SearchSection />
       <TodaysTherapists />
-      <NewFaceSection />
-      <RankingSection />
+      <SearchSection />
       <ServicesSection />
-      <FirstVisitCTA />
+      <RecruitCTA />
+      <RankingSection />
       <SafetySection />
       <PricingSection />
-      <BookingFlow />
-      <ReviewsSection />
       <BlogSection />
-      <RecruitCTA />
       <FaqSection />
     </>
   );

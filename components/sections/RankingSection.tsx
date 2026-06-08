@@ -18,7 +18,7 @@ export default function RankingSection() {
         <SectionTitle
           en="Ranking"
           ja="人気ランキング"
-          description="口コミ評価・お気に入り数をもとにしたセラピストランキングです。"
+          description="掲載セラピストの閲覧数・お気に入り数をもとにしたランキングです。（グランドオープン後に実データで更新予定のサンプル表示）"
         />
 
         {/* Ranking type tabs */}
