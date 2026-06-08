@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import SectionTitle from '@/components/ui/SectionTitle';
-import { Shield, Search, Eye, Heart, Check, MessageCircle, Star } from 'lucide-react';
+import { Shield, Search, Eye, Heart, Check, MessageCircle, ShieldCheck, ArrowRight } from 'lucide-react';
+import { dummyTherapists } from '@/data/dummy-therapists';
 
 export const metadata: Metadata = {
   title: '女風 初めての方へ｜女性用風俗 初めて 東京 裏東京ロマンス',
@@ -66,6 +68,8 @@ const concerns = [
     a: 'プロフィールページにある「予約相談する」ボタンから、フォームを通じて連絡します。個人の連絡先を直接やり取りする必要はありません。',
   },
 ];
+
+const firstTimerTherapist = dummyTherapists.find((t) => t.slug === 'ritsu')!;
 
 export default function FirstPage() {
   const schema = {
@@ -156,6 +160,78 @@ export default function FirstPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Featured first-timer therapist */}
+      <section className="section-py px-5 bg-surface">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-gold text-[10px] tracking-[0.3em] mb-8 text-center">初心者向けセラピスト特集</p>
+          <div className="grid md:grid-cols-2 gap-0 overflow-hidden border border-border">
+            {/* Photo side */}
+            <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[480px] overflow-hidden">
+              {firstTimerTherapist.image ? (
+                <Image
+                  src={firstTimerTherapist.image}
+                  alt={firstTimerTherapist.name}
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              ) : (
+                <div className="img-placeholder w-full h-full" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-surface/60 hidden md:block" />
+              <div className="absolute inset-0 bg-gradient-to-t from-base/80 to-transparent" />
+              <div className="absolute bottom-4 left-5">
+                <p className="font-display text-2xl text-cream tracking-wide">{firstTimerTherapist.name}</p>
+                <p className="text-stone text-xs mt-0.5">{firstTimerTherapist.age}歳 / {firstTimerTherapist.height}cm</p>
+              </div>
+            </div>
+
+            {/* Info side */}
+            <div className="bg-elevated p-8 md:p-10 flex flex-col justify-center">
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {firstTimerTherapist.tags.slice(0, 4).map((tag) => (
+                  <span key={tag} className="tag-pill">{tag}</span>
+                ))}
+              </div>
+
+              <h3 className="font-display text-xl text-cream mb-4 leading-relaxed">
+                「初めてでも、<br />緊張しなくて大丈夫です」
+              </h3>
+
+              <p className="text-stone text-sm leading-relaxed mb-6">
+                {firstTimerTherapist.intro}
+              </p>
+
+              <div className="flex items-center gap-2 mb-6">
+                {firstTimerTherapist.verifiedId && (
+                  <span className="flex items-center gap-1 text-[10px] text-gold border border-gold/30 px-2.5 py-1">
+                    <ShieldCheck size={9} />本人確認済
+                  </span>
+                )}
+                <span className="flex items-center gap-1 text-[10px] text-gold border border-gold/30 px-2.5 py-1">
+                  <Check size={9} />初心者向け
+                </span>
+              </div>
+
+              <Link
+                href={`/therapists/${firstTimerTherapist.slug}`}
+                className="flex items-center gap-2 text-gold text-xs tracking-widest hover:gap-3 transition-all duration-200 group"
+              >
+                プロフィールを見る
+                <ArrowRight size={13} strokeWidth={1.5} className="group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </div>
+          </div>
+
+          <p className="text-mist text-[10px] text-center mt-4">
+            ※ 他にも初心者向けのセラピストがいます。
+            <Link href="/therapists?tag=初心者向け" className="text-gold/60 hover:text-gold ml-1 underline underline-offset-2">
+              初心者向けセラピストを探す →
+            </Link>
+          </p>
         </div>
       </section>
 

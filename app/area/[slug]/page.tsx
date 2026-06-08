@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Clock, ShieldCheck, Star, ArrowRight } from 'lucide-react';
 import SectionTitle from '@/components/ui/SectionTitle';
@@ -43,6 +44,8 @@ export default async function AreaSlugPage({ params }: PageProps) {
   );
   const todayAvailable = areaTherapists.filter((t) => t.availableToday);
   const relatedAreas = areasData.filter((a) => area.relatedSlugs.includes(a.slug));
+  // Featured spotlight: urban/stylish therapist (kyohei) as the area ambassador visual
+  const spotlightTherapist = dummyTherapists.find((t) => t.slug === 'kyohei')!;
 
   const faqSchema = {
     '@context': 'https://schema.org',
@@ -144,6 +147,48 @@ export default async function AreaSlugPage({ params }: PageProps) {
               <Link href="/therapists" className="btn-secondary mt-4 inline-flex">全セラピストを見る</Link>
             </div>
           )}
+
+          {/* Spotlight therapist */}
+          <div className="mb-12 border border-border overflow-hidden">
+            <div className="flex flex-col md:flex-row">
+              <div className="relative w-full md:w-52 aspect-[4/3] md:aspect-auto flex-shrink-0 overflow-hidden">
+                {spotlightTherapist.image ? (
+                  <Image
+                    src={spotlightTherapist.image}
+                    alt={spotlightTherapist.name}
+                    fill
+                    className="object-cover object-top"
+                    sizes="(max-width: 768px) 100vw, 208px"
+                  />
+                ) : (
+                  <div className="img-placeholder w-full h-full" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-base/70 to-transparent" />
+              </div>
+              <div className="flex-1 bg-elevated p-7 flex flex-col justify-center">
+                <p className="text-gold text-[10px] tracking-widest mb-3">{area.name}対応 — おすすめセラピスト</p>
+                <div className="flex items-baseline gap-3 mb-2">
+                  <p className="font-display text-2xl text-cream">{spotlightTherapist.name}</p>
+                  <p className="text-stone text-xs">{spotlightTherapist.age}歳 / {spotlightTherapist.height}cm</p>
+                </div>
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {spotlightTherapist.tags.slice(0, 3).map((tag) => (
+                    <span key={tag} className="tag-pill">{tag}</span>
+                  ))}
+                </div>
+                <p className="text-stone text-xs leading-relaxed mb-4 line-clamp-2">
+                  {spotlightTherapist.recommended}
+                </p>
+                <Link
+                  href={`/therapists/${spotlightTherapist.slug}`}
+                  className="inline-flex items-center gap-1.5 text-gold text-xs tracking-widest hover:gap-2.5 transition-all duration-200 group"
+                >
+                  プロフィールを見る
+                  <ArrowRight size={12} strokeWidth={1.5} className="group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+              </div>
+            </div>
+          </div>
 
           {/* Area characteristics */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
