@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useRef, useEffect } from 'react';
-import { MessageCircle, Heart, BarChart2, X, Check, ChevronRight, Calendar, Clock, MapPin, Send, Loader2, AlertCircle } from 'lucide-react';
+import { MessageCircle, Heart, BarChart2, X, Check, ChevronRight, Calendar, Clock, Send, Loader2, AlertCircle } from 'lucide-react';
 import {
   generateSchedule,
   STATUS_CONFIG,
@@ -52,9 +52,7 @@ function EmailFormModal({
     const [, m, d] = day.date.split('-').map(Number);
     return `${m}月${d}日（${day.dayName}）`;
   })();
-  const timeLabel = context.slot
-    ? `${context.slot.startTime}〜${context.slot.endTime}`
-    : null;
+  const timeLabel = context.slot ? `${context.slot.startTime}〜${context.slot.endTime}` : null;
 
   const handleSubmit = () => {
     if (!nickname.trim()) return;
@@ -70,9 +68,7 @@ function EmailFormModal({
   return (
     <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center">
       <div className="absolute inset-0 bg-base/90 backdrop-blur-sm" onClick={onClose} />
-
       <div className="relative w-full max-w-lg bg-surface border border-border md:rounded-sm max-h-[92dvh] flex flex-col modal-slide-up">
-        {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border flex-shrink-0">
           <div>
             <p className="text-gold text-[10px] tracking-widest">Mail Form</p>
@@ -96,9 +92,7 @@ function EmailFormModal({
               <p className="text-mist text-xs leading-relaxed mb-6">
                 通常1〜2営業日以内にメールまたはLINEでご連絡します。
               </p>
-              <button onClick={onClose} className="btn-primary px-8 py-2.5 text-sm">
-                閉じる
-              </button>
+              <button onClick={onClose} className="btn-primary px-8 py-2.5 text-sm">閉じる</button>
             </div>
           ) : (
             <div className="px-6 py-5 space-y-5">
@@ -121,21 +115,17 @@ function EmailFormModal({
               </div>
 
               <div>
-                <label className="block text-mist text-[10px] tracking-widest mb-2">
-                  ニックネーム <span className="text-wine">*</span>
-                </label>
+                <label className="block text-mist text-[10px] tracking-widest mb-2">ニックネーム <span className="text-wine">*</span></label>
                 <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)}
                   placeholder="例：さくら"
                   className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 transition-colors" />
               </div>
-
               <div>
                 <label className="block text-mist text-[10px] tracking-widest mb-2">メールアドレス</label>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                   placeholder="your@email.com"
                   className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 transition-colors" />
               </div>
-
               <div>
                 <label className="block text-mist text-[10px] tracking-widest mb-2">LINE ID</label>
                 <input type="text" value={lineId} onChange={(e) => setLineId(e.target.value)}
@@ -143,7 +133,6 @@ function EmailFormModal({
                   className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 transition-colors" />
                 <p className="text-mist text-[10px] mt-1">メールまたはLINEのどちらかをご入力ください</p>
               </div>
-
               {!context.slot && (
                 <div>
                   <label className="block text-mist text-[10px] tracking-widest mb-2">希望時間帯</label>
@@ -151,32 +140,24 @@ function EmailFormModal({
                     className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 transition-colors" />
                 </div>
               )}
-
               <div>
-                <label className="block text-mist text-[10px] tracking-widest mb-2">
-                  希望エリア <span className="text-wine">*</span>
-                </label>
+                <label className="block text-mist text-[10px] tracking-widest mb-2">希望エリア <span className="text-wine">*</span></label>
                 <select value={preferredArea} onChange={(e) => setPreferredArea(e.target.value)}
                   className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50">
-                  {areas.map((area) => (
-                    <option key={area} value={area}>{area}</option>
-                  ))}
+                  {areas.map((area) => <option key={area} value={area}>{area}</option>)}
                   <option value="その他">その他（備考欄に記入）</option>
                 </select>
               </div>
-
               <div>
                 <label className="block text-mist text-[10px] tracking-widest mb-2">相談内容</label>
                 <textarea rows={4} value={message} onChange={(e) => setMessage(e.target.value)}
                   placeholder="初めての利用で不安なことがあれば何でもご相談ください。"
                   className="w-full bg-elevated border border-border text-cream px-4 py-2.5 text-sm outline-none focus:border-gold/50 resize-none placeholder:text-mist" />
               </div>
-
               <div className="bg-elevated/50 border border-border/50 p-3 flex items-start gap-2">
                 <AlertCircle size={12} className="text-mist flex-shrink-0 mt-0.5" strokeWidth={1.5} />
                 <p className="text-mist text-[10px] leading-relaxed">
-                  当サービスは情報掲載とマッチングを提供します。実際のサービス内容は当事者間の合意に基づきます。
-                  18歳未満のご利用は禁止されています。
+                  当サービスは情報掲載とマッチングを提供します。実際のサービス内容は当事者間の合意に基づきます。18歳未満のご利用は禁止されています。
                 </p>
               </div>
             </div>
@@ -185,8 +166,7 @@ function EmailFormModal({
 
         {!submitted && (
           <div className="px-6 py-4 border-t border-border flex-shrink-0">
-            <button onClick={handleSubmit}
-              disabled={!nickname.trim() || submitting}
+            <button onClick={handleSubmit} disabled={!nickname.trim() || submitting}
               className="w-full btn-primary py-3 flex items-center justify-center gap-2 text-sm disabled:opacity-40 disabled:cursor-not-allowed">
               {submitting ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
               {submitting ? '送信中...' : '相談を送る'}
@@ -202,7 +182,6 @@ function EmailFormModal({
 
 function StickyBar({
   therapistSlug,
-  therapistName,
   onConsult,
 }: {
   therapistSlug: string;
@@ -226,11 +205,7 @@ function StickyBar({
     };
   }, [therapistSlug]);
 
-  const handleFavorite = () => {
-    toggleFavorite(therapistSlug);
-    setFavorited(isFavorited(therapistSlug));
-  };
-
+  const handleFavorite = () => { toggleFavorite(therapistSlug); setFavorited(isFavorited(therapistSlug)); };
   const handleCompare = () => {
     const result = toggleCompare(therapistSlug);
     setInCompare(isInCompare(therapistSlug));
@@ -243,35 +218,25 @@ function StickyBar({
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden">
       {compareFlash && (
-        <div className="bg-wine text-cream text-[10px] text-center py-1.5 px-4">
-          比較は最大3名まで
-        </div>
+        <div className="bg-wine text-cream text-[10px] text-center py-1.5 px-4">比較は最大3名まで</div>
       )}
       <div className="bg-base/95 backdrop-blur-md border-t border-border">
         <div className="flex items-stretch">
-          <button
-            onClick={onConsult}
-            className="flex-1 flex flex-col items-center gap-1 py-3.5 text-cream hover:bg-elevated transition-colors border-r border-border"
-          >
+          <button onClick={onConsult}
+            className="flex-1 flex flex-col items-center gap-1 py-3.5 text-cream hover:bg-elevated transition-colors border-r border-border">
             <MessageCircle size={18} strokeWidth={1.5} />
             <span className="text-[10px] tracking-wide">相談する</span>
           </button>
-          <button
-            onClick={handleFavorite}
-            className="flex-1 flex flex-col items-center gap-1 py-3.5 border-r border-border transition-colors hover:bg-elevated"
-          >
-            <Heart size={18} strokeWidth={1.5}
-              className={favorited ? 'text-wine fill-wine' : 'text-stone'} />
+          <button onClick={handleFavorite}
+            className="flex-1 flex flex-col items-center gap-1 py-3.5 border-r border-border transition-colors hover:bg-elevated">
+            <Heart size={18} strokeWidth={1.5} className={favorited ? 'text-wine fill-wine' : 'text-stone'} />
             <span className={`text-[10px] tracking-wide ${favorited ? 'text-wine' : 'text-stone'}`}>
               {favorited ? '保存済み' : 'お気に入り'}
             </span>
           </button>
-          <button
-            onClick={handleCompare}
-            className="flex-1 flex flex-col items-center gap-1 py-3.5 transition-colors hover:bg-elevated"
-          >
-            <BarChart2 size={18} strokeWidth={1.5}
-              className={inCompare ? 'text-gold' : 'text-stone'} />
+          <button onClick={handleCompare}
+            className="flex-1 flex flex-col items-center gap-1 py-3.5 transition-colors hover:bg-elevated">
+            <BarChart2 size={18} strokeWidth={1.5} className={inCompare ? 'text-gold' : 'text-stone'} />
             <span className={`text-[10px] tracking-wide ${inCompare ? 'text-gold' : 'text-stone'}`}>
               {inCompare ? '比較中' : '比較する'}
             </span>
@@ -282,16 +247,77 @@ function StickyBar({
   );
 }
 
+// ─── Slot Row ──────────────────────────────────────────────────────────────
+
+function SlotRow({
+  slot,
+  onBook,
+}: {
+  slot: TimeSlot;
+  onBook: () => void;
+}) {
+  const cfg = STATUS_CONFIG[slot.status];
+  const isAvailable = slot.status === 'available' || slot.status === 'limited';
+  const isBooked = slot.status === 'full';
+  const isInquiry = slot.status === 'inquiry';
+  const canBook = isAvailable || isInquiry;
+
+  return (
+    <div className={`flex items-center gap-4 px-5 py-4 border-l-2 ${cfg.borderColor} transition-all duration-200 ${
+      isBooked ? 'opacity-45' : canBook ? 'hover:bg-elevated/40 cursor-pointer' : ''
+    }`}
+      onClick={canBook ? onBook : undefined}
+    >
+      {/* Dot indicator */}
+      <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${cfg.dotColor} ${
+        isAvailable ? 'shadow-[0_0_6px_2px_rgba(52,211,153,0.35)]' : ''
+      }`} />
+
+      {/* Time */}
+      <div className="flex-1 min-w-0">
+        <p className={`font-display text-lg leading-tight tracking-wide ${isBooked ? 'text-stone/50' : 'text-cream'}`}>
+          {slot.startTime}
+          <span className="text-mist/50 text-sm font-sans mx-1.5">〜</span>
+          {slot.endTime}
+        </p>
+        {isInquiry && (
+          <p className="text-sky-300/70 text-[10px] mt-0.5">移動中・場所・時間の調整が必要なケース</p>
+        )}
+      </div>
+
+      {/* Status badge + CTA */}
+      {isBooked ? (
+        <div className="flex items-center gap-1.5 text-rose-400/60 flex-shrink-0">
+          <span className="text-[11px] tracking-widest">受付済</span>
+        </div>
+      ) : canBook ? (
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <span className={`text-[10px] px-2 py-0.5 border ${cfg.textColor} ${cfg.borderColor} ${cfg.bgColor} tracking-widest`}>
+            {cfg.label}
+          </span>
+          <button
+            onClick={(e) => { e.stopPropagation(); onBook(); }}
+            className={`text-[11px] tracking-wider px-4 py-2 transition-all duration-200 ${
+              isAvailable
+                ? 'bg-emerald-400/10 border border-emerald-400/40 text-emerald-400 hover:bg-emerald-400/20'
+                : 'bg-sky-300/10 border border-sky-300/40 text-sky-300 hover:bg-sky-300/20'
+            }`}
+          >
+            相談する
+          </button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 // ─── Main Booking Section ──────────────────────────────────────────────────
 
 export default function BookingSection({ therapistSlug, therapistName, areas }: BookingSectionProps) {
   const schedule = useMemo(() => generateSchedule(therapistSlug, 14), [therapistSlug]);
   const [selectedIdx, setSelectedIdx] = useState(0);
-
-  // Two-step modal: first method selection, then email form if chosen
   const [methodCtx, setMethodCtx] = useState<BookingContext | null>(null);
   const [formCtx, setFormCtx] = useState<BookingContext | null>(null);
-
   const dateBarRef = useRef<HTMLDivElement>(null);
   const selectedDay = schedule[selectedIdx];
 
@@ -301,16 +327,10 @@ export default function BookingSection({ therapistSlug, therapistName, areas }: 
   };
 
   const handleEmailFormSelected = () => {
-    if (methodCtx) {
-      setFormCtx(methodCtx);
-      setMethodCtx(null);
-    }
+    if (methodCtx) { setFormCtx(methodCtx); setMethodCtx(null); }
   };
 
-  const closeAll = () => {
-    setMethodCtx(null);
-    setFormCtx(null);
-  };
+  const closeAll = () => { setMethodCtx(null); setFormCtx(null); };
 
   const buildContactContext = (ctx: BookingContext) => {
     const { day, slot } = ctx;
@@ -318,11 +338,10 @@ export default function BookingSection({ therapistSlug, therapistName, areas }: 
     const dateLabel = day.dayLabel === '今日' || day.dayLabel === '明日'
       ? `${day.dayLabel} ${m}月${d}日（${day.dayName}）`
       : `${m}月${d}日（${day.dayName}）`;
-    const timeLabel = slot ? `${slot.startTime}〜${slot.endTime}` : undefined;
     return {
       therapistName,
       dateLabel,
-      timeLabel,
+      timeLabel: slot ? `${slot.startTime}〜${slot.endTime}` : undefined,
       areaLabel: areas[0],
     };
   };
@@ -334,12 +353,18 @@ export default function BookingSection({ therapistSlug, therapistName, areas }: 
     return `${m}月${d}日（${day.dayName}）`;
   };
 
+  // Count bookable slots for the selected day
+  const bookableCount = selectedDay.slots.filter(
+    (s) => s.status === 'available' || s.status === 'limited' || s.status === 'inquiry'
+  ).length;
+
   return (
     <>
       {/* ── Availability Calendar ────────────────────────────── */}
       <section id="availability" className="py-10 px-5 bg-[#0D0B0B] border-y border-border">
         <div className="max-w-4xl mx-auto">
-          {/* Header */}
+
+          {/* Section header */}
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-3">
               <Calendar size={16} className="text-gold" strokeWidth={1.5} />
@@ -348,16 +373,18 @@ export default function BookingSection({ therapistSlug, therapistName, areas }: 
                 <h2 className="font-display text-xl text-cream">出勤・空き状況</h2>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-mist text-[10px]">本日更新</p>
-              <div className="flex items-center gap-3 mt-1.5">
-                {(['available', 'limited', 'full', 'off'] as const).map((s) => (
-                  <div key={s} className="flex items-center gap-1">
-                    <span className={`w-1.5 h-1.5 rounded-full ${STATUS_CONFIG[s].dotColor}`} />
-                    <span className="text-mist text-[9px]">{STATUS_CONFIG[s].label}</span>
-                  </div>
-                ))}
-              </div>
+            {/* 凡例: 3種類のみ */}
+            <div className="flex items-center gap-4">
+              {([
+                { status: 'available', label: '受付中' },
+                { status: 'full',      label: '受付済' },
+                { status: 'inquiry',   label: '要相談' },
+              ] as const).map(({ status, label }) => (
+                <div key={status} className="flex items-center gap-1.5">
+                  <span className={`w-2 h-2 rounded-full ${STATUS_CONFIG[status].dotColor}`} />
+                  <span className="text-mist text-[10px]">{label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -369,9 +396,9 @@ export default function BookingSection({ therapistSlug, therapistName, areas }: 
               const isSelected = i === selectedIdx;
               return (
                 <button key={day.date} onClick={() => setSelectedIdx(i)}
-                  className={`flex-shrink-0 flex flex-col items-center gap-1.5 w-14 py-3 border transition-all duration-200 ${
+                  className={`flex-shrink-0 flex flex-col items-center gap-1.5 w-[3.75rem] py-3 border transition-all duration-200 ${
                     isSelected
-                      ? `${cfg.borderColor} ${cfg.bgColor}`
+                      ? `border-2 ${cfg.borderColor} ${cfg.bgColor}`
                       : 'border-border hover:border-gold/30 bg-elevated'
                   }`}>
                   <span className="text-[9px] tracking-wide text-mist leading-none">{day.dayName}</span>
@@ -380,74 +407,62 @@ export default function BookingSection({ therapistSlug, therapistName, areas }: 
                       ? day.dayLabel.slice(0, 2)
                       : day.dayLabel.split('/')[1]}
                   </span>
-                  <span className={`w-1.5 h-1.5 rounded-full ${cfg.dotColor}`} />
+                  <span className={`w-2 h-2 rounded-full ${cfg.dotColor}`} />
                 </button>
               );
             })}
           </div>
 
-          {/* Day detail */}
+          {/* Day detail card */}
           <div className="card-luxury overflow-hidden">
+            {/* Day header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-border bg-elevated/30">
-              <h3 className="text-cream text-sm font-display">{formatFullDate(selectedDay)}</h3>
-              <span className={`text-[10px] px-2.5 py-1 border ${STATUS_CONFIG[selectedDay.overallStatus].textColor} ${STATUS_CONFIG[selectedDay.overallStatus].borderColor} ${STATUS_CONFIG[selectedDay.overallStatus].bgColor}`}>
+              <div>
+                <h3 className="text-cream text-sm font-display">{formatFullDate(selectedDay)}</h3>
+                {selectedDay.overallStatus !== 'off' && bookableCount > 0 && (
+                  <p className="text-emerald-400 text-[10px] mt-0.5">
+                    相談可能な時間帯が{bookableCount}枠あります
+                  </p>
+                )}
+                {selectedDay.overallStatus !== 'off' && bookableCount === 0 && (
+                  <p className="text-rose-400/70 text-[10px] mt-0.5">
+                    この日の空き枠はすべて受付済です
+                  </p>
+                )}
+              </div>
+              <span className={`text-[10px] px-2.5 py-1 border tracking-widest ${
+                STATUS_CONFIG[selectedDay.overallStatus].textColor
+              } ${STATUS_CONFIG[selectedDay.overallStatus].borderColor} ${
+                STATUS_CONFIG[selectedDay.overallStatus].bgColor
+              }`}>
                 {STATUS_CONFIG[selectedDay.overallStatus].label}
               </span>
             </div>
 
+            {/* Slots */}
             {selectedDay.overallStatus === 'off' || selectedDay.slots.length === 0 ? (
-              <div className="flex flex-col items-center py-10 gap-3">
-                <Clock size={24} className="text-border" strokeWidth={1} />
+              <div className="flex flex-col items-center py-12 gap-3">
+                <Clock size={28} className="text-border" strokeWidth={1} />
                 <p className="text-mist text-sm">この日は休みです</p>
                 <p className="text-mist text-[10px]">前後の日程をご確認ください</p>
               </div>
             ) : (
-              <div className="divide-y divide-border/50">
-                {selectedDay.slots.map((slot) => {
-                  const cfg = STATUS_CONFIG[slot.status];
-                  const canBook = slot.status === 'available' || slot.status === 'limited' || slot.status === 'inquiry';
-                  return (
-                    <div key={slot.id}
-                      className={`flex items-center gap-4 px-5 py-4 transition-colors ${canBook ? 'hover:bg-elevated/50' : ''}`}>
-                      <span className={`w-2 h-2 rounded-full flex-shrink-0 ${cfg.dotColor}`} />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-cream text-sm">
-                          {slot.startTime}<span className="text-mist mx-1">〜</span>{slot.endTime}
-                        </p>
-                        <p className={`text-xs mt-0.5 ${cfg.textColor}`}>
-                          {cfg.label}
-                          {slot.status === 'limited' && slot.remaining != null && (
-                            <span className="ml-1 text-[10px]">（残り{slot.remaining}枠）</span>
-                          )}
-                        </p>
-                      </div>
-                      {canBook ? (
-                        <button
-                          onClick={() => openMethodModal(selectedDay, slot)}
-                          className={`flex-shrink-0 flex items-center gap-1.5 text-xs px-4 py-2 border transition-colors ${
-                            slot.status === 'available'
-                              ? 'border-emerald-400/40 text-emerald-400 hover:bg-emerald-400/10'
-                              : slot.status === 'limited'
-                              ? 'border-orange-400/40 text-orange-400 hover:bg-orange-400/10'
-                              : 'border-sky-300/40 text-sky-300 hover:bg-sky-300/10'
-                          }`}>
-                          <MessageCircle size={12} />
-                          相談する
-                        </button>
-                      ) : (
-                        <span className="flex-shrink-0 text-mist text-xs">受付終了</span>
-                      )}
-                    </div>
-                  );
-                })}
+              <div className="divide-y divide-border/40">
+                {selectedDay.slots.map((slot) => (
+                  <SlotRow
+                    key={slot.id}
+                    slot={slot}
+                    onBook={() => openMethodModal(selectedDay, slot)}
+                  />
+                ))}
               </div>
             )}
 
             {/* Footer CTA */}
             {selectedDay.overallStatus !== 'off' && (
-              <div className="px-5 py-4 border-t border-border/50 bg-elevated/20 flex items-center justify-between">
+              <div className="px-5 py-3.5 border-t border-border/50 bg-elevated/20 flex items-center justify-between">
                 <p className="text-mist text-[10px]">
-                  {formatFullDate(selectedDay)}の相談を申し込む
+                  希望の時間帯がなければ日程相談も可
                 </p>
                 <button onClick={() => openMethodModal(selectedDay, null)}
                   className="flex items-center gap-1.5 text-gold text-xs hover:underline">
@@ -458,13 +473,12 @@ export default function BookingSection({ therapistSlug, therapistName, areas }: 
           </div>
 
           <p className="text-mist text-[10px] mt-4 leading-relaxed">
-            ※ 表示されているスケジュールはセラピストが更新した目安です。確定は相談成立後となります。
-            当サービスは情報掲載とマッチングを提供します。
+            ※ 空き状況はセラピストが更新した目安です。確定は相談成立後となります。当サービスは情報掲載とマッチングを提供します。
           </p>
         </div>
       </section>
 
-      {/* ── Method Selection Modal (Step 1) ──────────────────── */}
+      {/* ── Method Selection Modal ────────────────────────────── */}
       {methodCtx && (
         <ContactMethodModal
           context={buildContactContext(methodCtx)}
@@ -473,7 +487,7 @@ export default function BookingSection({ therapistSlug, therapistName, areas }: 
         />
       )}
 
-      {/* ── Email Form Modal (Step 2) ──────────────────────────── */}
+      {/* ── Email Form Modal ──────────────────────────────────── */}
       {formCtx && (
         <EmailFormModal
           therapistName={therapistName}

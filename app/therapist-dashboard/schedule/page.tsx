@@ -10,7 +10,7 @@ const DAYS = ['月', '火', '水', '木', '金', '土', '日'];
 const DEFAULT_SLOTS: Array<{ start: string; end: string; status: AvailabilityStatus }> = [
   { start: '12:00', end: '15:00', status: 'available' },
   { start: '15:00', end: '18:00', status: 'available' },
-  { start: '18:00', end: '24:00', status: 'limited' },
+  { start: '18:00', end: '24:00', status: 'available' },
 ];
 
 export default function SchedulePage() {
@@ -120,9 +120,8 @@ export default function SchedulePage() {
                     className={`bg-elevated border text-sm px-3 py-1.5 outline-none ${cfg.borderColor} ${cfg.textColor}`}
                   >
                     <option value="available">受付中</option>
-                    <option value="limited">残りわずか</option>
-                    <option value="full">満枠</option>
-                    <option value="inquiry">要相談</option>
+                    <option value="full">受付済</option>
+                    <option value="inquiry">要相談（移動中・場所・時間調整）</option>
                     <option value="off">休み</option>
                   </select>
                   <button onClick={() => removeSlot(idx)} className="text-mist hover:text-wine transition-colors">
