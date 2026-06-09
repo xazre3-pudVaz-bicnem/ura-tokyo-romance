@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '安心安全への取り組み｜東京 女風マッチング 裏東京ロマンス',
   description:
     '裏東京ロマンスの安心安全への取り組み。本人確認フロー・審査基準・禁止事項・通報窓口・掲載停止基準・利用者向け注意事項を公開。18歳未満利用禁止。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/safety' },
+  alternates: { canonical: 'https://uratokyoromance.com/safety' },
 };
 
 export default function SafetyPage() {

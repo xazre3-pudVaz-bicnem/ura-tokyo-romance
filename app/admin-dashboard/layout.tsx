@@ -38,7 +38,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <span className="text-cream text-sm tracking-wide">裏東京ロマンス 管理パネル</span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-mist text-[10px]">admin@ura-tokyo-romance.com</span>
+            <span className="text-mist text-[10px]">info@uratokyoromance.com</span>
             <Link href="/admin-login" className="flex items-center gap-1.5 text-mist text-[10px] hover:text-stone transition-colors">
               <LogOut size={12} />
               ログアウト

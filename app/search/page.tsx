@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: '条件から探す｜東京 女風マッチング 裏東京ロマンス',
   description:
     '東京の女風セラピストを条件で絞り込んで探す。エリア・時間帯・雰囲気・料金・本人確認済み・即日相談可など多彩な条件で検索できます。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/search' },
+  alternates: { canonical: 'https://uratokyoromance.com/search' },
 };
 
 const areas = ['渋谷・恵比寿', '新宿・歌舞伎町', '銀座・六本木', '池袋・高田馬場', '表参道・青山', '上野・秋葉原', '品川・大崎'];

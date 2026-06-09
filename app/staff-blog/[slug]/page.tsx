@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: post.seoDescription || post.excerpt,
       images: post.image ? [{ url: post.image, width: 1200, height: 630 }] : [],
     },
-    alternates: { canonical: `https://ura-tokyo-romance.com/staff-blog/${slug}` },
+    alternates: { canonical: `https://uratokyoromance.com/staff-blog/${slug}` },
   };
 }
 
@@ -44,8 +44,8 @@ export default async function BlogPostPage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://ura-tokyo-romance.com' },
-      { '@type': 'ListItem', position: 2, name: 'セラピストブログ', item: 'https://ura-tokyo-romance.com/staff-blog' },
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://uratokyoromance.com' },
+      { '@type': 'ListItem', position: 2, name: 'セラピストブログ', item: 'https://uratokyoromance.com/staff-blog' },
       { '@type': 'ListItem', position: 3, name: post.title },
     ],
   };

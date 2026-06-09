@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${therapist.name}のプロフィール｜東京 女風セラピスト｜裏東京ロマンス`,
     description: `${therapist.name}（${therapist.age}歳）のプロフィール。対応エリア：${therapist.areas.join('・')}。${therapist.intro.slice(0, 80)}。東京の女風マッチングプラットフォーム 裏東京ロマンス。`,
-    alternates: { canonical: `https://ura-tokyo-romance.com/therapists/${slug}` },
+    alternates: { canonical: `https://uratokyoromance.com/therapists/${slug}` },
   };
 }
 

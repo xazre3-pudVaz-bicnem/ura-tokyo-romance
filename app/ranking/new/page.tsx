@@ -7,7 +7,7 @@ import TherapistCard from '@/components/ui/TherapistCard';
 export const metadata: Metadata = {
   title: '新人ランキング｜裏東京ロマンス',
   description: '裏東京ロマンスの新人セラピストランキング。最近デビューした注目のセラピストをご紹介。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/ranking/new' },
+  alternates: { canonical: 'https://uratokyoromance.com/ranking/new' },
 };
 
 const newFace = [...dummyTherapists]

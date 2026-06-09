@@ -5,7 +5,7 @@ import { Calendar } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'イベント・キャンペーン｜裏東京ロマンス',
   description: '裏東京ロマンスの期間限定イベント・キャンペーン情報。東京の女性用風俗・女風のお得な情報をご確認ください。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/events' },
+  alternates: { canonical: 'https://uratokyoromance.com/events' },
 };
 
 const events = [

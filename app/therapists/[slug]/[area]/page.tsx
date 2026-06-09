@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `${areaData.name} メンズエステ 女性向け`,
       `${therapist.name} ${areaData.name}`,
     ],
-    alternates: { canonical: `https://ura-tokyo-romance.com/therapists/${slug}/${area}` },
+    alternates: { canonical: `https://uratokyoromance.com/therapists/${slug}/${area}` },
   };
 }
 
@@ -89,17 +89,17 @@ export default async function TherapistAreaPage({ params }: Props) {
       '@type': 'City',
       name: areaData.name,
     },
-    url: `https://ura-tokyo-romance.com/therapists/${slug}/${area}`,
+    url: `https://uratokyoromance.com/therapists/${slug}/${area}`,
   };
 
   const breadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://ura-tokyo-romance.com' },
-      { '@type': 'ListItem', position: 2, name: 'セラピスト一覧', item: 'https://ura-tokyo-romance.com/therapists' },
-      { '@type': 'ListItem', position: 3, name: therapist.name, item: `https://ura-tokyo-romance.com/therapists/${slug}` },
-      { '@type': 'ListItem', position: 4, name: `${areaData.name}エリア`, item: `https://ura-tokyo-romance.com/therapists/${slug}/${area}` },
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://uratokyoromance.com' },
+      { '@type': 'ListItem', position: 2, name: 'セラピスト一覧', item: 'https://uratokyoromance.com/therapists' },
+      { '@type': 'ListItem', position: 3, name: therapist.name, item: `https://uratokyoromance.com/therapists/${slug}` },
+      { '@type': 'ListItem', position: 4, name: `${areaData.name}エリア`, item: `https://uratokyoromance.com/therapists/${slug}/${area}` },
     ],
   };
 

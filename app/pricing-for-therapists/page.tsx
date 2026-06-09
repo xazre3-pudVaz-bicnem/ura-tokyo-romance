@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   keywords: ['女風 セラピスト 掲載料金', '女風 プラットフォーム 料金', '東京 女風 セラピスト 登録費用'],
   description:
     '裏東京ロマンスのセラピスト向け掲載プラン。無料掲載プランから始められます。グランドオープン2026年8月1日。先行登録受付中。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/pricing-for-therapists' },
+  alternates: { canonical: 'https://uratokyoromance.com/pricing-for-therapists' },
 };
 
 const plans = [

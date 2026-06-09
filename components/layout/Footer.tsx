@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Instagram } from 'lucide-react';
+import { Instagram, Twitter } from 'lucide-react';
+import { SITE_CONTACT } from '@/lib/site-contact';
 
 const footerLinks = {
   user: [
@@ -60,7 +61,16 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4">
               <a
-                href="https://www.instagram.com/ura_tokyo_romance/"
+                href={SITE_CONTACT.xUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-stone hover:text-gold transition-colors duration-300"
+                aria-label="X（旧Twitter）"
+              >
+                <Twitter size={18} />
+              </a>
+              <a
+                href={SITE_CONTACT.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-stone hover:text-gold transition-colors duration-300"

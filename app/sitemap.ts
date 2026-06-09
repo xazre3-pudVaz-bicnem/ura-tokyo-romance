@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { blogPosts } from '@/data/blog-posts';
 import { dummyTherapists } from '@/data/dummy-therapists';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ura-tokyo-romance.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://uratokyoromance.com';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [

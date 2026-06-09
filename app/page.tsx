@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   alternates: {
-    canonical: 'https://ura-tokyo-romance.com',
+    canonical: 'https://uratokyoromance.com',
   },
 };
 

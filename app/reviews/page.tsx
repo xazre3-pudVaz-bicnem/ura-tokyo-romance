@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: '口コミ・お客様の声｜東京 女性用風俗・女風の裏東京ロマンス',
   description:
     '裏東京ロマンスのお客様の声・口コミ。東京の女性用風俗・女風をご利用いただいた方のリアルな感想をご紹介します。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/reviews' },
+  alternates: { canonical: 'https://uratokyoromance.com/reviews' },
 };
 
 export default function ReviewsPage() {

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: '総合人気ランキング｜裏東京ロマンス',
   description: '裏東京ロマンスの総合人気ランキング。お気に入り数・口コミ・閲覧数を総合評価した自動ランキングです。',
   keywords: ['女風 人気ランキング', '女風 セラピスト 人気', '東京 女風 ランキング'],
-  alternates: { canonical: 'https://ura-tokyo-romance.com/ranking/popular' },
+  alternates: { canonical: 'https://uratokyoromance.com/ranking/popular' },
 };
 
 const ranked = [...dummyTherapists]

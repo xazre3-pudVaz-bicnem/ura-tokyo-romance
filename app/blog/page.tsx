@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'コラム｜東京 女風マッチング 裏東京ロマンス',
   description:
     '東京の女性用風俗・女風に関するコラム。初めての女風利用ガイド・セラピストの探し方・料金の仕組み・女風マッチングの使い方など10本以上の記事を掲載。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/blog' },
+  alternates: { canonical: 'https://uratokyoromance.com/blog' },
 };
 
 export default function BlogPage() {

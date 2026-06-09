@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title}｜裏東京ロマンス`,
     description: post.excerpt,
-    alternates: { canonical: `https://ura-tokyo-romance.com/blog/${slug}` },
+    alternates: { canonical: `https://uratokyoromance.com/blog/${slug}` },
   };
 }
 
@@ -41,7 +41,7 @@ export default async function BlogPostPage({ params }: Props) {
     publisher: {
       '@type': 'Organization',
       name: '裏東京ロマンス',
-      logo: { '@type': 'ImageObject', url: 'https://ura-tokyo-romance.com/logo.png' },
+      logo: { '@type': 'ImageObject', url: 'https://uratokyoromance.com/logo.png' },
     },
   };
 

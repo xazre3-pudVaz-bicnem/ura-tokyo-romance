@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   ],
   description:
     '今日会えるセラピスト一覧。東京で女風を今日利用したい女性向けに、当日対応可能なセラピストを掲載しています。即日相談可のセラピストもいます。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/today' },
+  alternates: { canonical: 'https://uratokyoromance.com/today' },
 };
 
 export default function TodayPage() {
@@ -29,7 +29,7 @@ export default function TodayPage() {
       '@type': 'ListItem',
       position: i + 1,
       name: t.name,
-      url: `https://ura-tokyo-romance.com/therapists/${t.slug}`,
+      url: `https://uratokyoromance.com/therapists/${t.slug}`,
     })),
   };
 

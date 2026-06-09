@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   keywords: ['女風 初めて', '女性用風俗 初めて 東京', '女風 使い方', '東京 女風 流れ', '女風 料金 初めて'],
   description:
     '初めて女性用風俗・女風をご利用の方へ。裏東京ロマンスでのセラピストの探し方・予約相談の流れ・料金目安・安全性を詳しくご説明します。女風初心者向けガイド。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/first' },
+  alternates: { canonical: 'https://uratokyoromance.com/first' },
 };
 
 const steps = [

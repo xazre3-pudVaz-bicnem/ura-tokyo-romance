@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   keywords: ['東京 女風 セラピスト', '女性用風俗 セラピスト 東京', '東京 女風 マッチング', '女風 セラピスト 検索', '東京 女性用風俗'],
   description:
     '東京で女風セラピストを探すなら裏東京ロマンス。本人確認済みのセラピスト一覧。エリア・雰囲気・料金・口コミで絞り込み検索。女性用風俗・女風マッチングプラットフォーム。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/therapists' },
+  alternates: { canonical: 'https://uratokyoromance.com/therapists' },
 };
 
 const schema = {

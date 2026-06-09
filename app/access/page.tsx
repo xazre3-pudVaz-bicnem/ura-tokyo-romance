@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'エリア別セラピスト｜東京 女風マッチング 裏東京ロマンス',
   description:
     '裏東京ロマンスのエリア別セラピスト一覧。渋谷・新宿・銀座・六本木・恵比寿など東京の主要エリアで活動するセラピストを探せます。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/access' },
+  alternates: { canonical: 'https://uratokyoromance.com/access' },
 };
 
 const areas = [

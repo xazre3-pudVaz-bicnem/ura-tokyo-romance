@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${therapist.name}のブログ｜裏東京ロマンス`,
     description: `${therapist.name}（${therapist.areas.slice(0, 2).join('・')}エリア）のブログ。出勤情報・日常を発信中。`,
     keywords: [`女風 ${therapist.areas[0]}`, `${therapist.name} ブログ`, '女風 セラピスト ブログ'],
-    alternates: { canonical: `https://ura-tokyo-romance.com/therapists/${slug}/blog` },
+    alternates: { canonical: `https://uratokyoromance.com/therapists/${slug}/blog` },
   };
 }
 

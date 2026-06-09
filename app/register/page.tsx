@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   keywords: ['女風 セラピスト 登録', '東京 女風 セラピスト 募集', '女風 セラピスト 個人', '女性用風俗 男性 登録', '東京 女風 セラピスト なるには'],
   description:
     '東京で女風セラピストとして個人活動したい方へ。SNSに頼らない集客・検索で見つけてもらいやすいプロフィールページ・本人確認済みバッジ・ランキング露出で、東京の女性に見つけてもらえる環境を提供します。女風セラピスト登録受付中。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/register' },
+  alternates: { canonical: 'https://uratokyoromance.com/register' },
 };
 
 const merits = [

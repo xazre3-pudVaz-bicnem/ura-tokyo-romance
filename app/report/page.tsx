@@ -5,7 +5,7 @@ import { Flag, Shield, MessageSquare, AlertTriangle } from 'lucide-react';
 export const metadata: Metadata = {
   title: '通報・相談窓口｜裏東京ロマンス',
   description: '裏東京ロマンスの通報・相談窓口。不審なセラピスト・利用者・口コミ・トラブルを報告できます。24時間受付。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/report' },
+  alternates: { canonical: 'https://uratokyoromance.com/report' },
 };
 
 const categories = [
@@ -77,7 +77,7 @@ export default function ReportPage() {
                 <label className="block text-gold text-[10px] tracking-widest mb-2">報告対象のURL・プロフィール名</label>
                 <input
                   type="text"
-                  placeholder="例：https://ura-tokyo-romance.com/therapists/sakura または「咲良（さくら）」"
+                  placeholder="例：https://uratokyoromance.com/therapists/sakura または「咲良（さくら）」"
                   className="w-full bg-elevated border border-border text-cream px-4 py-3 text-sm placeholder:text-mist outline-none focus:border-gold/50 transition-colors"
                 />
               </div>

@@ -7,7 +7,7 @@ import TherapistCard from '@/components/ui/TherapistCard';
 export const metadata: Metadata = {
   title: '口コミランキング｜裏東京ロマンス',
   description: '裏東京ロマンスの口コミランキング。口コミ評価が高いセラピスト一覧。グランドオープン後に実際の口コミが反映されます。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/ranking/reviews' },
+  alternates: { canonical: 'https://uratokyoromance.com/ranking/reviews' },
 };
 
 const ranked = [...dummyTherapists]

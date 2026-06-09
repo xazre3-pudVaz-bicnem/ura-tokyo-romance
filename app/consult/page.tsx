@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   keywords: ['女風 相談', '女性用風俗 相談', '東京 女風 初めて相談', '女風 問い合わせ'],
   description:
     '女性用風俗・女風に関するご相談はこちらから。セラピストへの予約相談・初めての利用相談・一般的なお問い合わせに対応しています。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/consult' },
+  alternates: { canonical: 'https://uratokyoromance.com/consult' },
 };
 
 export default function ConsultPage() {

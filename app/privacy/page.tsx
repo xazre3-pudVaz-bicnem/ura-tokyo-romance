@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'プライバシーポリシー｜裏東京ロマンス',
   description: '裏東京ロマンスのプライバシーポリシーです。お客様の個人情報の取り扱いについて説明します。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/privacy' },
+  alternates: { canonical: 'https://uratokyoromance.com/privacy' },
 };
 
 export default function PrivacyPage() {

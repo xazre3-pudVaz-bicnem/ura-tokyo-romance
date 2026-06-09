@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   keywords: ['東京 女風 料金', '女性用風俗 料金 相場', '女風 料金 60分', '東京 女風 いくら', '女性用風俗 東京 料金'],
   description:
     '東京の女風・女性用風俗の料金相場。60分¥12,000〜¥22,000、90分¥18,000〜¥32,000が目安です。料金はセラピストごとに異なります。詳細はセラピストのプロフィールをご確認ください。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/price' },
+  alternates: { canonical: 'https://uratokyoromance.com/price' },
 };
 
 const marketPrices = [

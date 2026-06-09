@@ -6,7 +6,7 @@ import { Save, Globe, Bell, Shield, Database } from 'lucide-react';
 export default function AdminSettingsPage() {
   const [siteName, setSiteName] = useState('裏東京ロマンス');
   const [openDate, setOpenDate] = useState('2026-08-01');
-  const [notifyEmail, setNotifyEmail] = useState('admin@ura-tokyo-romance.com');
+  const [notifyEmail, setNotifyEmail] = useState('info@uratokyoromance.com');
   const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
@@ -46,7 +46,7 @@ export default function AdminSettingsPage() {
             <div>
               <label className="block text-mist text-[10px] tracking-widest mb-2">サイトURL</label>
               <input
-                defaultValue="https://ura-tokyo-romance.com"
+                defaultValue="https://uratokyoromance.com"
                 disabled
                 className="w-full bg-elevated border border-border/50 text-mist px-4 py-2.5 text-sm outline-none cursor-not-allowed"
               />

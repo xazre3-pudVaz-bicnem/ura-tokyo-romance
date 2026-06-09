@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'セラピストブログ｜裏東京ロマンス',
   description: '裏東京ロマンス所属セラピストのブログ。出勤情報・日常・活動エリアの情報などを発信しています。女風セラピストの素顔を知ることができます。',
   keywords: ['女風 ブログ', 'セラピスト ブログ', '女風 出勤情報', '女風 セラピスト 日常'],
-  alternates: { canonical: 'https://ura-tokyo-romance.com/staff-blog' },
+  alternates: { canonical: 'https://uratokyoromance.com/staff-blog' },
 };
 
 const publishedPosts = dummyBlogPosts.filter((p) => p.status === 'published');

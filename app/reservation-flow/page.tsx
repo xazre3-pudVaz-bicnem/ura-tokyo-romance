@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: '予約・相談の流れ｜東京 女風 予約方法 裏東京ロマンス',
   keywords: ['女風 予約方法', '女風 相談の流れ', '東京 女風 予約'],
   description: '裏東京ロマンスでの予約・相談の流れ。セラピストを探す→相談フォームで連絡→日時確認→当日お会いする。シンプルな4ステップです。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/reservation-flow' },
+  alternates: { canonical: 'https://uratokyoromance.com/reservation-flow' },
 };
 
 const steps = [

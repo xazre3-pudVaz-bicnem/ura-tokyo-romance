@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `#${tag}｜セラピストブログ｜裏東京ロマンス`,
     description: `裏東京ロマンスのセラピストブログ「${tag}」タグの記事一覧。`,
-    alternates: { canonical: `https://ura-tokyo-romance.com/staff-blog/tag/${slug}` },
+    alternates: { canonical: `https://uratokyoromance.com/staff-blog/tag/${slug}` },
   };
 }
 

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   ],
   description:
     '東京の女風セラピストをエリアから検索。新宿・渋谷・銀座・六本木・池袋・恵比寿・表参道など東京各エリアで活動するセラピストを一覧で確認できます。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/area' },
+  alternates: { canonical: 'https://uratokyoromance.com/area' },
 };
 
 const areas = [

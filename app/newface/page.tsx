@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '新人セラピスト｜東京 女風マッチング 裏東京ロマンス',
   description:
     '裏東京ロマンスに新しく登録されたセラピストをご紹介します。東京の女風マッチングで、新しいセラピストとのフレッシュな出会いを。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/newface' },
+  alternates: { canonical: 'https://uratokyoromance.com/newface' },
 };
 
 export default function NewFacePage() {

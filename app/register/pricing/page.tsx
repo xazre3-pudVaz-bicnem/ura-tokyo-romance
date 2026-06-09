@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: '掲載料金・手数料｜女風セラピスト登録 裏東京ロマンス',
   description:
     '裏東京ロマンスのセラピスト掲載料金・手数料についての説明。正式料金はグランドオープン前に確定します。現在は先行登録・無料掲載を受け付けています。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/register/pricing' },
+  alternates: { canonical: 'https://uratokyoromance.com/register/pricing' },
 };
 
 const plans = [

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'サービス・機能案内｜東京 女風マッチング 裏東京ロマンス',
   description:
     '裏東京ロマンスのプラットフォーム機能をご紹介。セラピスト検索・本人確認・口コミ・予約相談・ランキングなど、東京の女性用風俗・女風マッチングに必要な機能を揃えています。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/service' },
+  alternates: { canonical: 'https://uratokyoromance.com/service' },
 };
 
 const features = [

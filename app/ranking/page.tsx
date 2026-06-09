@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'セラピストランキング【2026年最新版】｜裏東京ロマンス',
   description: '裏東京ロマンスのセラピストランキング。人気・新人・お気に入り・口コミ・閲覧数などのランキングをリアルタイムで更新中。東京の女風セラピストを選ぶ参考に。',
   keywords: ['女風 ランキング', 'セラピスト ランキング', '女風 人気', '東京 女風 人気セラピスト'],
-  alternates: { canonical: 'https://ura-tokyo-romance.com/ranking' },
+  alternates: { canonical: 'https://uratokyoromance.com/ranking' },
 };
 
 const RANKING_CATEGORIES = [

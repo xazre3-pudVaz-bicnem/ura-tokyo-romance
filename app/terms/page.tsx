@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: '利用規約｜裏東京ロマンス',
   description: '裏東京ロマンスの利用規約。18歳未満利用禁止・虚偽登録禁止・禁止事項・個人情報保護など。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/terms' },
+  alternates: { canonical: 'https://uratokyoromance.com/terms' },
 };
 
 export default function TermsPage() {

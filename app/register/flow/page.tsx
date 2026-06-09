@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'セラピスト審査の流れ｜女風セラピスト登録 裏東京ロマンス',
   description:
     '裏東京ロマンスへのセラピスト登録・審査の流れを詳しくご説明します。申請から掲載開始まで最短5営業日。東京の女風マッチングプラットフォーム。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/register/flow' },
+  alternates: { canonical: 'https://uratokyoromance.com/register/flow' },
 };
 
 const steps = [

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'セラピスト向け説明｜女風セラピスト登録 裏東京ロマンス',
   description:
     '裏東京ロマンスのセラピスト向け説明ページ。掲載の仕組み・料金・審査・プロフィール管理・禁止事項などを詳しく説明します。東京の女風マッチングプラットフォーム。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/register/info' },
+  alternates: { canonical: 'https://uratokyoromance.com/register/info' },
 };
 
 export default function RegisterInfoPage() {

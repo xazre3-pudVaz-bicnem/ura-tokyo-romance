@@ -5,7 +5,7 @@ import { Bell } from 'lucide-react';
 export const metadata: Metadata = {
   title: 'お知らせ｜裏東京ロマンス',
   description: '裏東京ロマンスからのお知らせ・更新情報。2026年8月1日グランドオープン予定。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/news' },
+  alternates: { canonical: 'https://uratokyoromance.com/news' },
 };
 
 const dummyNews = [

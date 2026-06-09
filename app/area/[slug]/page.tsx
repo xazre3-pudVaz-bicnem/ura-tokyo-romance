@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `東京 ${area.name} 女風`,
       `${area.name} 女風 今日会える`,
     ],
-    alternates: { canonical: `https://ura-tokyo-romance.com/area/${slug}` },
+    alternates: { canonical: `https://uratokyoromance.com/area/${slug}` },
   };
 }
 
@@ -60,8 +60,8 @@ export default async function AreaSlugPage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://ura-tokyo-romance.com' },
-      { '@type': 'ListItem', position: 2, name: 'エリア', item: 'https://ura-tokyo-romance.com/area' },
+      { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://uratokyoromance.com' },
+      { '@type': 'ListItem', position: 2, name: 'エリア', item: 'https://uratokyoromance.com/area' },
       { '@type': 'ListItem', position: 3, name: `${area.name}の女風セラピスト` },
     ],
   };

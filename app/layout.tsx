@@ -21,7 +21,7 @@ const noto = Noto_Sans_JP({
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ura-tokyo-romance.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://uratokyoromance.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

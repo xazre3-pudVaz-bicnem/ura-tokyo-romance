@@ -7,7 +7,7 @@ import TherapistCard from '@/components/ui/TherapistCard';
 export const metadata: Metadata = {
   title: 'お気に入りランキング｜裏東京ロマンス',
   description: '裏東京ロマンスのお気に入りランキング。多くの女性にお気に入り登録されているセラピスト一覧。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/ranking/favorites' },
+  alternates: { canonical: 'https://uratokyoromance.com/ranking/favorites' },
 };
 
 const ranked = [...dummyTherapists].sort((a, b) => b.favoriteCount - a.favoriteCount);

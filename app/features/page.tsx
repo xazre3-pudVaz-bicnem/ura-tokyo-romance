@@ -6,7 +6,7 @@ import TherapistCard from '@/components/ui/TherapistCard';
 export const metadata: Metadata = {
   title: '特集｜裏東京ロマンス',
   description: '初めての方向け・会話重視・癒し系・高身長など、シーンやタイプ別にセラピストを特集でご紹介。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/features' },
+  alternates: { canonical: 'https://uratokyoromance.com/features' },
 };
 
 const features = [

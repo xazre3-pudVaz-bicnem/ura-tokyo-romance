@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: '本日の出勤｜東京 女風マッチング 裏東京ロマンス',
   description:
     '裏東京ロマンスの本日の出勤情報。東京の女風セラピストで、今日・今週相談可能なセラピストをご確認いただけます。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/schedule' },
+  alternates: { canonical: 'https://uratokyoromance.com/schedule' },
 };
 
 export default function SchedulePage() {

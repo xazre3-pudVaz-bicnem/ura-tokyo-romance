@@ -5,7 +5,7 @@ import { AlertTriangle, XCircle } from 'lucide-react';
 export const metadata: Metadata = {
   title: '禁止事項｜裏東京ロマンス',
   description: '裏東京ロマンスの禁止事項一覧。利用者・セラピスト双方に対する禁止行為と、違反時の対応について説明します。',
-  alternates: { canonical: 'https://ura-tokyo-romance.com/prohibited' },
+  alternates: { canonical: 'https://uratokyoromance.com/prohibited' },
 };
 
 const userProhibitions = [

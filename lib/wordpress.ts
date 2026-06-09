@@ -1,4 +1,4 @@
-const WP_API = process.env.WP_API_URL || 'https://cms.ura-tokyo-romance.com/wp-json/wp/v2';
+const WP_API = process.env.WP_API_URL || 'https://cms.uratokyoromance.com/wp-json/wp/v2';
 
 // Generic fetch helper with error handling
 async function wpFetch<T>(endpoint: string, params: Record<string, string> = {}): Promise<T | null> {
