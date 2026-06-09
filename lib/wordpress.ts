@@ -1,14 +1,19 @@
-const WP_API = process.env.WP_API_URL || 'https://cms.uratokyoromance.com/wp-json/wp/v2';
+const WP_API =
+  process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
+  'https://wp.uratokyoromance.com/wp-json/wp/v2';
 
-// Generic fetch helper with error handling
-async function wpFetch<T>(endpoint: string, params: Record<string, string> = {}): Promise<T | null> {
+// ─── Fetch helper ─────────────────────────────────────────────────────────────
+
+async function wpFetch<T>(
+  endpoint: string,
+  params: Record<string, string> = {},
+): Promise<T | null> {
   try {
     const url = new URL(`${WP_API}${endpoint}`);
     Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
 
     const res = await fetch(url.toString(), {
-      next: { revalidate: 300 }, // 5 minute cache
-      headers: { 'Content-Type': 'application/json' },
+      next: { revalidate: 300 },
     });
 
     if (!res.ok) return null;
@@ -18,7 +23,13 @@ async function wpFetch<T>(endpoint: string, params: Record<string, string> = {})
   }
 }
 
-// ---- Types ----
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+export interface WpCategory {
+  id: number;
+  name: string;
+  slug: string;
+}
 
 export interface WpPost {
   id: number;
@@ -28,10 +39,11 @@ export interface WpPost {
   excerpt: { rendered: string };
   date: string;
   categories: number[];
-  acf?: Record<string, unknown>;
   featured_media: number;
   _embedded?: {
     'wp:featuredmedia'?: Array<{ source_url: string; alt_text: string }>;
+    // [0] = categories, [1] = tags
+    'wp:term'?: Array<WpCategory[]>;
   };
 }
 
@@ -79,9 +91,9 @@ export interface WpEvent extends WpPost {
   };
 }
 
-// ---- Blog posts ----
+// ─── Blog posts ───────────────────────────────────────────────────────────────
 
-export async function getWpBlogPosts(perPage = 10, page = 1): Promise<WpPost[] | null> {
+export async function getWpBlogPosts(perPage = 12, page = 1): Promise<WpPost[] | null> {
   return wpFetch<WpPost[]>('/posts', {
     per_page: String(perPage),
     page: String(page),
@@ -94,7 +106,7 @@ export async function getWpBlogPost(slug: string): Promise<WpPost | null> {
   return posts?.[0] ?? null;
 }
 
-// ---- Therapists (custom post type) ----
+// ─── Therapists (custom post type) ───────────────────────────────────────────
 
 export async function getWpTherapists(perPage = 20): Promise<WpTherapist[] | null> {
   return wpFetch<WpTherapist[]>('/therapist', {
@@ -108,43 +120,41 @@ export async function getWpTherapist(slug: string): Promise<WpTherapist | null> 
   return items?.[0] ?? null;
 }
 
-// ---- Schedules ----
+// ─── Schedules ────────────────────────────────────────────────────────────────
 
 export async function getWpSchedules(perPage = 20): Promise<WpSchedule[] | null> {
   return wpFetch<WpSchedule[]>('/schedule', { per_page: String(perPage) });
 }
 
-// ---- Reviews ----
+// ─── Reviews ─────────────────────────────────────────────────────────────────
 
 export async function getWpReviews(perPage = 20): Promise<WpReview[] | null> {
   return wpFetch<WpReview[]>('/review', { per_page: String(perPage) });
 }
 
-// ---- Events ----
+// ─── Events ──────────────────────────────────────────────────────────────────
 
 export async function getWpEvents(perPage = 10): Promise<WpEvent[] | null> {
   return wpFetch<WpEvent[]>('/event', { per_page: String(perPage) });
 }
 
-// ---- Staff Blog ----
+// ─── Staff Blog ───────────────────────────────────────────────────────────────
 
 export async function getWpStaffBlogs(perPage = 10): Promise<WpPost[] | null> {
   return wpFetch<WpPost[]>('/staff_blog', { per_page: String(perPage), _embed: '1' });
 }
 
-// ---- Recruit News ----
+// ─── Recruit News ─────────────────────────────────────────────────────────────
 
 export async function getWpRecruitNews(perPage = 10): Promise<WpPost[] | null> {
   return wpFetch<WpPost[]>('/recruit_news', { per_page: String(perPage) });
 }
 
-// ---- Utility: strip HTML tags from WP rendered content ----
+// ─── Utilities ───────────────────────────────────────────────────────────────
 
 export function stripHtml(html: string): string {
-  return html.replace(/<[^>]+>/g, '').trim();
+  return html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#039;/g, "'").trim();
 }
-
-// ---- Format WP date ----
 
 export function formatWpDate(dateString: string): string {
   const date = new Date(dateString);
@@ -153,4 +163,16 @@ export function formatWpDate(dateString: string): string {
     month: 'long',
     day: 'numeric',
   });
+}
+
+export function getPostFeaturedImage(
+  post: WpPost,
+): { src: string; alt: string } | null {
+  const media = post._embedded?.['wp:featuredmedia']?.[0];
+  if (!media) return null;
+  return { src: media.source_url, alt: media.alt_text || stripHtml(post.title.rendered) };
+}
+
+export function getPostCategories(post: WpPost): WpCategory[] {
+  return post._embedded?.['wp:term']?.[0] ?? [];
 }

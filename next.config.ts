@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.WP_DOMAIN || 'cms.ura-tokyo-romance.com',
+        hostname: process.env.WP_DOMAIN || 'wp.uratokyoromance.com',
         port: '',
         pathname: '/wp-content/uploads/**',
       },

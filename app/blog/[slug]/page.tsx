@@ -1,8 +1,16 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Clock, Tag } from 'lucide-react';
-import { blogPosts } from '@/data/blog-posts';
+import { Tag } from 'lucide-react';
+import {
+  getWpBlogPost,
+  formatWpDate,
+  stripHtml,
+  getPostFeaturedImage,
+  getPostCategories,
+} from '@/lib/wordpress';
+
+export const revalidate = 300;
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -10,33 +18,47 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getWpBlogPost(slug);
   if (!post) return { title: 'Not Found' };
 
+  const title = stripHtml(post.title.rendered);
+  const description = stripHtml(post.excerpt.rendered).slice(0, 120);
+  const image = getPostFeaturedImage(post);
+
   return {
-    title: `${post.title}｜裏東京ロマンス`,
-    description: post.excerpt,
+    title: `${title}｜裏東京ロマンス`,
+    description,
+    openGraph: {
+      title: `${title}｜裏東京ロマンス`,
+      description,
+      images: image ? [{ url: image.src, width: 1200, height: 630, alt: image.alt }] : [],
+      locale: 'ja_JP',
+      type: 'article',
+      publishedTime: post.date,
+    },
+    twitter: { card: 'summary_large_image' },
     alternates: { canonical: `https://uratokyoromance.com/blog/${slug}` },
   };
 }
 
-export function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }));
-}
-
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getWpBlogPost(slug);
   if (!post) notFound();
 
-  const related = blogPosts.filter((p) => p.slug !== slug && p.category === post.category).slice(0, 2);
+  const title = stripHtml(post.title.rendered);
+  const date = formatWpDate(post.date);
+  const image = getPostFeaturedImage(post);
+  const categories = getPostCategories(post);
+  const primaryCategory = categories[0];
 
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: post.title,
-    description: post.excerpt,
+    headline: title,
+    description: stripHtml(post.excerpt.rendered).slice(0, 120),
     datePublished: post.date,
+    ...(image ? { image: image.src } : {}),
     author: { '@type': 'Organization', name: '裏東京ロマンス' },
     publisher: {
       '@type': 'Organization',
@@ -47,65 +69,62 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
 
       {/* Hero */}
       <section className="pt-32 pb-16 px-5 bg-surface border-b border-border">
         <div className="max-w-3xl mx-auto">
-          <div className="flex items-center gap-3 mb-5">
-            <span className="bg-wine text-cream text-[10px] tracking-widest px-3 py-1">{post.category}</span>
-            <div className="flex items-center gap-1 text-mist text-xs">
-              <Clock size={11} />
-              {post.readingTime}分で読めます
-            </div>
+          {/* Category + Date */}
+          <div className="flex items-center gap-3 mb-5 flex-wrap">
+            {primaryCategory && (
+              <span className="bg-wine text-cream text-[10px] tracking-widest px-3 py-1">
+                {primaryCategory.name}
+              </span>
+            )}
+            <p className="text-mist text-xs">{date}</p>
           </div>
-          <h1 className="font-display text-3xl md:text-4xl text-cream mb-4 leading-snug tracking-wide">
-            {post.title}
-          </h1>
-          <p className="text-mist text-xs">{post.date}</p>
+
+          {/* Title */}
+          <h1
+            className="font-display text-3xl md:text-4xl text-cream mb-6 leading-snug tracking-wide"
+            dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+          />
+
+          {/* Featured image */}
+          {image && (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full aspect-video object-cover"
+            />
+          )}
         </div>
       </section>
 
-      {/* Content */}
-      <article className="section-py px-5">
+      {/* Article body */}
+      <article className="section-py px-5 pb-24">
         <div className="max-w-3xl mx-auto">
           {/* Excerpt */}
           <p className="text-stone text-base leading-relaxed mb-10 p-6 border-l-2 border-gold bg-elevated">
-            {post.excerpt}
+            {stripHtml(post.excerpt.rendered)}
           </p>
 
-          {/* Body */}
-          <div className="prose-luxury">
-            {post.content.split('\n\n').map((block, i) => {
-              if (block.startsWith('## ')) {
-                return (
-                  <h2 key={i} className="font-display text-2xl text-cream mt-10 mb-4 tracking-wide">
-                    {block.replace('## ', '')}
-                  </h2>
-                );
-              }
-              if (block.startsWith('**') && block.endsWith('**')) {
-                return (
-                  <p key={i} className="text-cream text-sm font-sans font-medium mb-3">
-                    {block.replace(/\*\*/g, '')}
-                  </p>
-                );
-              }
-              const processed = block.replace(/\*\*(.+?)\*\*/g, '<strong class="text-cream">$1</strong>');
-              return (
-                <p
-                  key={i}
-                  className="text-stone text-sm leading-loose mb-5"
-                  dangerouslySetInnerHTML={{ __html: processed }}
-                />
-              );
-            })}
-          </div>
+          {/* WP HTML content */}
+          <div
+            className="wp-content prose-luxury"
+            dangerouslySetInnerHTML={{ __html: post.content.rendered }}
+          />
 
-          {/* Tags */}
-          <div className="flex items-center gap-3 mt-10 pt-8 border-t border-border">
-            <Tag size={13} className="text-stone" />
-            <span className="tag-pill">{post.category}</span>
+          {/* Categories / Tags */}
+          <div className="flex items-center flex-wrap gap-3 mt-10 pt-8 border-t border-border">
+            <Tag size={13} className="text-stone flex-shrink-0" />
+            {categories.map((cat) => (
+              <span key={cat.id} className="tag-pill">{cat.name}</span>
+            ))}
             <span className="tag-pill">東京 女性用風俗</span>
             <span className="tag-pill">女風</span>
           </div>
@@ -125,23 +144,12 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Related */}
-          {related.length > 0 && (
-            <div className="mt-12">
-              <p className="text-gold text-[10px] tracking-widest mb-6">関連記事</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {related.map((p) => (
-                  <Link key={p.id} href={`/blog/${p.slug}`} className="card-luxury p-5 block group">
-                    <span className="text-wine text-[10px] tracking-widest mb-2 block">{p.category}</span>
-                    <p className="text-cream text-sm group-hover:text-gold transition-colors">{p.title}</p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
+          {/* Back */}
           <div className="mt-10 text-center">
-            <Link href="/blog" className="text-gold text-xs tracking-widest hover:text-gold-light transition-colors">
+            <Link
+              href="/blog"
+              className="text-gold text-xs tracking-widest hover:text-gold-light transition-colors"
+            >
               ← コラム一覧に戻る
             </Link>
           </div>
