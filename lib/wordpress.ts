@@ -7,6 +7,7 @@ const WP_API =
 async function wpFetch<T>(
   endpoint: string,
   params: Record<string, string> = {},
+  noStore = false,
 ): Promise<T | null> {
   try {
     const url = new URL(`${WP_API}${endpoint}`);
@@ -14,9 +15,10 @@ async function wpFetch<T>(
 
     console.log('Fetching:', url.toString());
 
-    const res = await fetch(url.toString(), {
-      next: { revalidate: 300 },
-    });
+    const res = await fetch(
+      url.toString(),
+      noStore ? { cache: 'no-store' } : { next: { revalidate: 300 } },
+    );
 
     if (!res.ok) {
       console.error('WordPress API Error', res.status, res.statusText, url.toString());
@@ -108,7 +110,7 @@ export async function getWpBlogPosts(perPage = 12, page = 1): Promise<WpPost[] |
 }
 
 export async function getWpBlogPost(slug: string): Promise<WpPost | null> {
-  const posts = await wpFetch<WpPost[]>('/posts', { slug, _embed: '1' });
+  const posts = await wpFetch<WpPost[]>('/posts', { slug, _embed: '1' }, true);
   return posts?.[0] ?? null;
 }
 
