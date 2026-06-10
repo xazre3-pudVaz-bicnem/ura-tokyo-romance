@@ -1,56 +1,74 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Tag } from 'lucide-react';
 import {
-  getWpBlogPost,
   formatWpDate,
   stripHtml,
   getPostFeaturedImage,
   getPostCategories,
 } from '@/lib/wordpress';
+import type { WpPost } from '@/lib/wordpress';
 
-export const dynamic = 'force-dynamic';
+const API_BASE =
+  process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
+  'https://wp.uratokyoromance.com/wp-json/wp/v2';
 
-interface Props {
-  params: Promise<{ slug: string }>;
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug: rawSlug } = await params;
-  const slug = decodeURIComponent(rawSlug);
-  const post = await getWpBlogPost(slug);
-  if (!post) return { title: 'Not Found' };
-
-  const title = stripHtml(post.title.rendered);
-  const description = stripHtml(post.excerpt.rendered).slice(0, 120);
-  const image = getPostFeaturedImage(post);
-
-  return {
-    title: `${title}｜裏東京ロマンス`,
-    description,
-    openGraph: {
-      title: `${title}｜裏東京ロマンス`,
-      description,
-      images: image ? [{ url: image.src, width: 1200, height: 630, alt: image.alt }] : [],
-      locale: 'ja_JP',
-      type: 'article',
-      publishedTime: post.date,
-    },
-    twitter: { card: 'summary_large_image' },
-    alternates: { canonical: `https://uratokyoromance.com/blog/${slug}` },
-  };
-}
-
-export default async function BlogPostPage({ params }: Props) {
-  const { slug: rawSlug } = await params;
+export default function BlogPostPage() {
+  const params = useParams();
+  const rawSlug = Array.isArray(params.slug) ? params.slug[0] : (params.slug ?? '');
   const slug = decodeURIComponent(rawSlug);
 
-  console.log('[blog/[slug]] fetching slug:', slug);
-  const post = await getWpBlogPost(slug);
-  console.log('[blog/[slug]] post found:', !!post);
+  const [post, setPost] = useState<WpPost | null | 'loading'>('loading');
 
-  if (!post) notFound();
+  useEffect(() => {
+    if (!slug) return;
+    const url = `${API_BASE}/posts?slug=${encodeURIComponent(slug)}&_embed`;
+    console.log('[blog/[slug]] fetching:', url);
+
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          console.error('[blog/[slug]] API error', res.status, url);
+          setPost(null);
+          return;
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data === undefined) return;
+        const posts = data as WpPost[];
+        console.log('[blog/[slug]] posts found:', posts.length);
+        setPost(posts[0] ?? null);
+      })
+      .catch((err) => {
+        console.error('[blog/[slug]] fetch failed', err);
+        setPost(null);
+      });
+  }, [slug]);
+
+  /* ── Loading ── */
+  if (post === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-stone text-sm">読み込み中...</p>
+      </div>
+    );
+  }
+
+  /* ── Not found ── */
+  if (post === null) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-5">
+        <p className="text-stone text-base">記事が見つかりませんでした</p>
+        <Link href="/blog" className="text-gold text-xs tracking-widest hover:text-gold-light transition-colors">
+          ← コラム一覧に戻る
+        </Link>
+      </div>
+    );
+  }
 
   const title = stripHtml(post.title.rendered);
   const date = formatWpDate(post.date);
@@ -58,32 +76,11 @@ export default async function BlogPostPage({ params }: Props) {
   const categories = getPostCategories(post);
   const primaryCategory = categories[0];
 
-  const articleSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: title,
-    description: stripHtml(post.excerpt.rendered).slice(0, 120),
-    datePublished: post.date,
-    ...(image ? { image: image.src } : {}),
-    author: { '@type': 'Organization', name: '裏東京ロマンス' },
-    publisher: {
-      '@type': 'Organization',
-      name: '裏東京ロマンス',
-      logo: { '@type': 'ImageObject', url: 'https://uratokyoromance.com/logo.png' },
-    },
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-      />
-
       {/* Hero */}
       <section className="pt-32 pb-16 px-5 bg-surface border-b border-border">
         <div className="max-w-3xl mx-auto">
-          {/* Category + Date */}
           <div className="flex items-center gap-3 mb-5 flex-wrap">
             {primaryCategory && (
               <span className="bg-wine text-cream text-[10px] tracking-widest px-3 py-1">
@@ -93,13 +90,11 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="text-mist text-xs">{date}</p>
           </div>
 
-          {/* Title */}
           <h1
             className="font-display text-3xl md:text-4xl text-cream mb-6 leading-snug tracking-wide"
             dangerouslySetInnerHTML={{ __html: post.title.rendered }}
           />
 
-          {/* Featured image */}
           {image && (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img
@@ -114,18 +109,15 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Article body */}
       <article className="section-py px-5 pb-24">
         <div className="max-w-3xl mx-auto">
-          {/* Excerpt */}
           <p className="text-stone text-base leading-relaxed mb-10 p-6 border-l-2 border-gold bg-elevated">
             {stripHtml(post.excerpt.rendered)}
           </p>
 
-          {/* WP HTML content */}
           <div
             className="wp-content prose-luxury"
             dangerouslySetInnerHTML={{ __html: post.content.rendered }}
           />
 
-          {/* Categories / Tags */}
           <div className="flex items-center flex-wrap gap-3 mt-10 pt-8 border-t border-border">
             <Tag size={13} className="text-stone flex-shrink-0" />
             {categories.map((cat) => (
@@ -135,7 +127,6 @@ export default async function BlogPostPage({ params }: Props) {
             <span className="tag-pill">女風</span>
           </div>
 
-          {/* CTA */}
           <div className="mt-10 p-8 bg-surface border border-border text-center">
             <p className="text-stone text-sm mb-4">
               東京で女風セラピストを探してみませんか？本人確認済みセラピストを一覧で確認できます。
@@ -150,7 +141,6 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Back */}
           <div className="mt-10 text-center">
             <Link
               href="/blog"
