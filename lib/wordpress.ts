@@ -12,13 +12,19 @@ async function wpFetch<T>(
     const url = new URL(`${WP_API}${endpoint}`);
     Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
 
+    console.log('Fetching:', url.toString());
+
     const res = await fetch(url.toString(), {
       next: { revalidate: 300 },
     });
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.error('WordPress API Error', res.status, res.statusText, url.toString());
+      return null;
+    }
     return res.json() as Promise<T>;
-  } catch {
+  } catch (error) {
+    console.error('WordPress Fetch Failed', error);
     return null;
   }
 }

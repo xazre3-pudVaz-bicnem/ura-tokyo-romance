@@ -1,30 +1,42 @@
-import type { Metadata } from 'next';
-import { getWpBlogPosts, getPostCategories } from '@/lib/wordpress';
-import type { WpCategory } from '@/lib/wordpress';
+'use client';
+
+import { useEffect, useState } from 'react';
+import type { WpPost, WpCategory } from '@/lib/wordpress';
+import { getPostCategories } from '@/lib/wordpress';
 import WpBlogCard from '@/components/ui/WpBlogCard';
 
-export const revalidate = 300;
+const API_BASE =
+  process.env.NEXT_PUBLIC_WORDPRESS_API_URL ||
+  'https://wp.uratokyoromance.com/wp-json/wp/v2';
 
-export const metadata: Metadata = {
-  title: 'コラム｜東京 女風マッチング 裏東京ロマンス',
-  description:
-    '東京の女性用風俗・女風に関するコラム。初めての女風利用ガイド・セラピストの探し方・料金の仕組み・女風マッチングの使い方など掲載。',
-  openGraph: {
-    title: 'コラム｜裏東京ロマンス',
-    description: '東京の女性用風俗・女風に関するコラム。初めての方向けガイドや料金・マッチングの使い方を解説。',
-    locale: 'ja_JP',
-    type: 'website',
-  },
-  twitter: { card: 'summary_large_image' },
-  alternates: { canonical: 'https://uratokyoromance.com/blog' },
-};
+export default function BlogPage() {
+  const [posts, setPosts] = useState<WpPost[] | null | 'loading'>('loading');
 
-export default async function BlogPage() {
-  const posts = await getWpBlogPosts(12);
+  useEffect(() => {
+    const url = `${API_BASE}/posts?_embed&per_page=12`;
+    console.log('Fetching blog posts:', url);
 
-  // Extract unique categories from fetched posts
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          console.error('WordPress API Error', res.status, res.statusText, url);
+          setPosts(null);
+          return;
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data !== undefined) setPosts(data as WpPost[]);
+      })
+      .catch((error) => {
+        console.error('WordPress Fetch Failed', error);
+        setPosts(null);
+      });
+  }, []);
+
+  // Extract unique categories
   const categoryMap = new Map<number, WpCategory>();
-  if (posts) {
+  if (Array.isArray(posts)) {
     posts.forEach((post) => {
       getPostCategories(post).forEach((cat) => {
         if (!categoryMap.has(cat.id)) categoryMap.set(cat.id, cat);
@@ -50,14 +62,16 @@ export default async function BlogPage() {
       {/* Posts */}
       <section className="section-py px-5">
         <div className="max-w-6xl mx-auto">
-          {posts === null ? (
-            /* ── Error State ── */
+          {posts === 'loading' ? (
+            <div className="text-center py-20">
+              <p className="text-stone text-base">読み込み中...</p>
+            </div>
+          ) : posts === null ? (
             <div className="text-center py-20">
               <p className="text-stone text-base mb-2">記事を取得できませんでした</p>
               <p className="text-mist text-sm">しばらく経ってから再度お試しください。</p>
             </div>
           ) : posts.length === 0 ? (
-            /* ── Empty State ── */
             <div className="text-center py-20">
               <p className="text-stone text-base">記事がありません</p>
               <p className="text-mist text-sm mt-2">近日中に記事を公開予定です。</p>
