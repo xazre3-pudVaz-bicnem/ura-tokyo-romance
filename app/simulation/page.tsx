@@ -5,23 +5,23 @@ import Link from 'next/link';
 import SectionTitle from '@/components/ui/SectionTitle';
 
 const marketRanges: Record<string, { low: number; high: number }> = {
-  '60': { low: 12000, high: 22000 },
-  '90': { low: 18000, high: 32000 },
-  '120': { low: 25000, high: 42000 },
-  '180': { low: 35000, high: 60000 },
+  '60': { low: 1200, high: 2200 },
+  '90': { low: 1800, high: 3200 },
+  '120': { low: 2500, high: 4200 },
+  '180': { low: 3500, high: 6000 },
 };
 
 const travelOptions = [
   { val: 0, label: '交通費なし / 込み' },
-  { val: 500, label: '交通費 ¥500目安' },
-  { val: 1000, label: '交通費 ¥1,000目安' },
+  { val: 50, label: '交通費 ¥50目安' },
+  { val: 100, label: '交通費 ¥100目安' },
 ];
 
 export default function SimulationPage() {
   const [duration, setDuration] = useState('90');
   const [travel, setTravel] = useState(0);
 
-  const range = marketRanges[duration] ?? { low: 18000, high: 32000 };
+  const range = marketRanges[duration] ?? { low: 1800, high: 3200 };
   const totalLow = range.low + travel;
   const totalHigh = range.high + travel;
 

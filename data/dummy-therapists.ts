@@ -102,10 +102,10 @@ export const dummyTherapists: Therapist[] = [
     planType: 'premium',
     referralCode: 'REN-2026',
     plans: [
-      { name: '60分', duration: 60, price: 18000 },
-      { name: '90分', duration: 90, price: 25000 },
-      { name: '120分', duration: 120, price: 33000 },
-      { name: '180分', duration: 180, price: 48000 },
+      { name: '60分', duration: 60, price: 1800 },
+      { name: '90分', duration: 90, price: 2500 },
+      { name: '120分', duration: 120, price: 3300 },
+      { name: '180分', duration: 180, price: 4800 },
     ],
     socialLinks: {
       x: 'https://x.com/ren_sample',
@@ -150,10 +150,10 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'YUMA-2026',
     plans: [
-      { name: '60分', duration: 60, price: 17000 },
-      { name: '90分', duration: 90, price: 24000 },
-      { name: '120分', duration: 120, price: 32000 },
-      { name: '180分', duration: 180, price: 46000 },
+      { name: '60分', duration: 60, price: 1700 },
+      { name: '90分', duration: 90, price: 2400 },
+      { name: '120分', duration: 120, price: 3200 },
+      { name: '180分', duration: 180, price: 4600 },
     ],
     socialLinks: {
       instagram: 'https://www.instagram.com/yuma_sample/',
@@ -194,9 +194,9 @@ export const dummyTherapists: Therapist[] = [
     planType: 'premium',
     referralCode: 'RIT-2026',
     plans: [
-      { name: '60分', duration: 60, price: 15000 },
-      { name: '90分', duration: 90, price: 22000 },
-      { name: '120分', duration: 120, price: 29000 },
+      { name: '60分', duration: 60, price: 1500 },
+      { name: '90分', duration: 90, price: 2200 },
+      { name: '120分', duration: 120, price: 2900 },
     ],
     socialLinks: {
       x: 'https://x.com/ritsu_sample',
@@ -238,10 +238,10 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'REO-2026',
     plans: [
-      { name: '60分', duration: 60, price: 20000 },
-      { name: '90分', duration: 90, price: 28000 },
-      { name: '120分', duration: 120, price: 36000 },
-      { name: '180分', duration: 180, price: 52000 },
+      { name: '60分', duration: 60, price: 2000 },
+      { name: '90分', duration: 90, price: 2800 },
+      { name: '120分', duration: 120, price: 3600 },
+      { name: '180分', duration: 180, price: 5200 },
     ],
   },
   {
@@ -279,9 +279,9 @@ export const dummyTherapists: Therapist[] = [
     planType: 'premium',
     referralCode: 'AO-2026',
     plans: [
-      { name: '60分', duration: 60, price: 15000 },
-      { name: '90分', duration: 90, price: 21000 },
-      { name: '120分', duration: 120, price: 28000 },
+      { name: '60分', duration: 60, price: 1500 },
+      { name: '90分', duration: 90, price: 2100 },
+      { name: '120分', duration: 120, price: 2800 },
     ],
   },
   {
@@ -319,10 +319,10 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'IOR-2026',
     plans: [
-      { name: '60分', duration: 60, price: 16000 },
-      { name: '90分', duration: 90, price: 23000 },
-      { name: '120分', duration: 120, price: 30000 },
-      { name: '180分', duration: 180, price: 44000 },
+      { name: '60分', duration: 60, price: 1600 },
+      { name: '90分', duration: 90, price: 2300 },
+      { name: '120分', duration: 120, price: 3000 },
+      { name: '180分', duration: 180, price: 4400 },
     ],
   },
   {
@@ -360,8 +360,8 @@ export const dummyTherapists: Therapist[] = [
     planType: 'free',
     referralCode: 'MIN-2026',
     plans: [
-      { name: '60分', duration: 60, price: 14000 },
-      { name: '90分', duration: 90, price: 20000 },
+      { name: '60分', duration: 60, price: 1400 },
+      { name: '90分', duration: 90, price: 2000 },
     ],
   },
   {
@@ -399,10 +399,10 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'KYO-2026',
     plans: [
-      { name: '60分', duration: 60, price: 19000 },
-      { name: '90分', duration: 90, price: 27000 },
-      { name: '120分', duration: 120, price: 35000 },
-      { name: '180分', duration: 180, price: 50000 },
+      { name: '60分', duration: 60, price: 1900 },
+      { name: '90分', duration: 90, price: 2700 },
+      { name: '120分', duration: 120, price: 3500 },
+      { name: '180分', duration: 180, price: 5000 },
     ],
   },
   {
@@ -440,9 +440,9 @@ export const dummyTherapists: Therapist[] = [
     planType: 'free',
     referralCode: 'HAY-2026',
     plans: [
-      { name: '60分', duration: 60, price: 16000 },
-      { name: '90分', duration: 90, price: 23000 },
-      { name: '120分', duration: 120, price: 30000 },
+      { name: '60分', duration: 60, price: 1600 },
+      { name: '90分', duration: 90, price: 2300 },
+      { name: '120分', duration: 120, price: 3000 },
     ],
   },
   {
@@ -480,9 +480,9 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'TAK-2026',
     plans: [
-      { name: '60分', duration: 60, price: 15000 },
-      { name: '90分', duration: 90, price: 21000 },
-      { name: '120分', duration: 120, price: 28000 },
+      { name: '60分', duration: 60, price: 1500 },
+      { name: '90分', duration: 90, price: 2100 },
+      { name: '120分', duration: 120, price: 2800 },
     ],
   },
   {
@@ -520,8 +520,8 @@ export const dummyTherapists: Therapist[] = [
     planType: 'free',
     referralCode: 'RYO-2026',
     plans: [
-      { name: '60分', duration: 60, price: 14000 },
-      { name: '90分', duration: 90, price: 20000 },
+      { name: '60分', duration: 60, price: 1400 },
+      { name: '90分', duration: 90, price: 2000 },
     ],
   },
   {
@@ -559,10 +559,10 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'EIT-2026',
     plans: [
-      { name: '60分', duration: 60, price: 17000 },
-      { name: '90分', duration: 90, price: 24000 },
-      { name: '120分', duration: 120, price: 32000 },
-      { name: '180分', duration: 180, price: 46000 },
+      { name: '60分', duration: 60, price: 1700 },
+      { name: '90分', duration: 90, price: 2400 },
+      { name: '120分', duration: 120, price: 3200 },
+      { name: '180分', duration: 180, price: 4600 },
     ],
   },
   {
@@ -600,8 +600,8 @@ export const dummyTherapists: Therapist[] = [
     planType: 'free',
     referralCode: 'RYU-2026',
     plans: [
-      { name: '60分', duration: 60, price: 13000 },
-      { name: '90分', duration: 90, price: 19000 },
+      { name: '60分', duration: 60, price: 1300 },
+      { name: '90分', duration: 90, price: 1900 },
     ],
   },
   {
@@ -639,9 +639,9 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'KEI-2026',
     plans: [
-      { name: '60分', duration: 60, price: 15000 },
-      { name: '90分', duration: 90, price: 21000 },
-      { name: '120分', duration: 120, price: 28000 },
+      { name: '60分', duration: 60, price: 1500 },
+      { name: '90分', duration: 90, price: 2100 },
+      { name: '120分', duration: 120, price: 2800 },
     ],
   },
   {
@@ -679,10 +679,10 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'OSA-2026',
     plans: [
-      { name: '60分', duration: 60, price: 21000 },
-      { name: '90分', duration: 90, price: 30000 },
-      { name: '120分', duration: 120, price: 38000 },
-      { name: '180分', duration: 180, price: 55000 },
+      { name: '60分', duration: 60, price: 2100 },
+      { name: '90分', duration: 90, price: 3000 },
+      { name: '120分', duration: 120, price: 3800 },
+      { name: '180分', duration: 180, price: 5500 },
     ],
   },
   {
@@ -720,9 +720,9 @@ export const dummyTherapists: Therapist[] = [
     planType: 'free',
     referralCode: 'YAM-2026',
     plans: [
-      { name: '60分', duration: 60, price: 14000 },
-      { name: '90分', duration: 90, price: 20000 },
-      { name: '120分', duration: 120, price: 27000 },
+      { name: '60分', duration: 60, price: 1400 },
+      { name: '90分', duration: 90, price: 2000 },
+      { name: '120分', duration: 120, price: 2700 },
     ],
   },
   {
@@ -760,9 +760,9 @@ export const dummyTherapists: Therapist[] = [
     planType: 'standard',
     referralCode: 'HIR-2026',
     plans: [
-      { name: '60分', duration: 60, price: 16000 },
-      { name: '90分', duration: 90, price: 23000 },
-      { name: '120分', duration: 120, price: 30000 },
+      { name: '60分', duration: 60, price: 1600 },
+      { name: '90分', duration: 90, price: 2300 },
+      { name: '120分', duration: 120, price: 3000 },
     ],
   },
   {
@@ -800,8 +800,8 @@ export const dummyTherapists: Therapist[] = [
     planType: 'free',
     referralCode: 'KAI-2026',
     plans: [
-      { name: '60分', duration: 60, price: 13000 },
-      { name: '90分', duration: 90, price: 19000 },
+      { name: '60分', duration: 60, price: 1300 },
+      { name: '90分', duration: 90, price: 1900 },
     ],
   },
   {
@@ -839,9 +839,9 @@ export const dummyTherapists: Therapist[] = [
     planType: 'free',
     referralCode: 'SOT-2026',
     plans: [
-      { name: '60分', duration: 60, price: 18000 },
-      { name: '90分', duration: 90, price: 25000 },
-      { name: '120分', duration: 120, price: 33000 },
+      { name: '60分', duration: 60, price: 1800 },
+      { name: '90分', duration: 90, price: 2500 },
+      { name: '120分', duration: 120, price: 3300 },
     ],
   },
   {
@@ -879,10 +879,10 @@ export const dummyTherapists: Therapist[] = [
     planType: 'free',
     referralCode: 'TSH-2026',
     plans: [
-      { name: '60分', duration: 60, price: 20000 },
-      { name: '90分', duration: 90, price: 28000 },
-      { name: '120分', duration: 120, price: 36000 },
-      { name: '180分', duration: 180, price: 52000 },
+      { name: '60分', duration: 60, price: 2000 },
+      { name: '90分', duration: 90, price: 2800 },
+      { name: '120分', duration: 120, price: 3600 },
+      { name: '180分', duration: 180, price: 5200 },
     ],
   },
 ];
